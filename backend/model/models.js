@@ -70,3 +70,20 @@ export const getAllBlogs = (results) => {
     }
   });
 };
+
+// to insert a new blog in the database
+export const insertBlog = (title, author, description, date, results) => {
+  db.query(
+    "insert into blogs(b_title, b_author, b_description, b_date) values($1, $2, $3, $4)",
+    [title, author, description, date],
+    (err, result) => {
+      if (err) {
+        console.log("facing error on adding a new blog.");
+        results(err, null);
+      } else {
+        console.log("blog is inserted successfully.");
+        results(null, result);
+      }
+    }
+  );
+};

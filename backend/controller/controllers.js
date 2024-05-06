@@ -3,6 +3,7 @@ import {
   insertUser,
   signInUser,
   getAllBlogs,
+  insertBlog,
 } from "../model/models.js";
 
 export const showAllUsers = (req, res) => {
@@ -45,6 +46,17 @@ export const showAllBlogs = (req, res) => {
       res.send(500);
     } else {
       res.json(result);
+    }
+  });
+};
+
+export const addBlog = (req, res) => {
+  const { title, author, description, date } = req.body;
+  insertBlog(title, author, description, date, (err, result) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
     }
   });
 };
