@@ -1,4 +1,9 @@
-import { getAllUsers, insertUser, signInUser } from "../model/models.js";
+import {
+  getAllUsers,
+  insertUser,
+  signInUser,
+  getAllBlogs,
+} from "../model/models.js";
 
 export const showAllUsers = (req, res) => {
   getAllUsers((err, result) => {
@@ -24,12 +29,22 @@ export const addUser = (req, res) => {
 
 export const logInUser = (req, res) => {
   const { email, password } = req.body;
-  signInUser(email, password, (err, result) => {
+  signInUser(email, password, res, (err, result) => {
     if (err) {
       res.sendStatus(500);
     } else {
       res.sendStatus(200);
       console.log("User is LoggedIn successfully!");
+    }
+  });
+};
+
+export const showAllBlogs = (req, res) => {
+  getAllBlogs((err, result) => {
+    if (err) {
+      res.send(500);
+    } else {
+      res.json(result);
     }
   });
 };

@@ -36,21 +36,37 @@ export const insertUser = (
 };
 
 // to login an existing user
-export const signInUser = (email, password, results) => {
+export const signInUser = (email, password, res, results) => {
   db.query(
     "select * from users where u_email = $1 and u_password = $2",
     [email, password],
     (err, result) => {
-      if (result.length > 0) {
+      if (err) {
+        console.log("Something Unexpected Happened!.");
+        results(err, null);
+        res.send(500);
+      } else if (result.rows.length > 0) {
         console.log("User is found!");
         // Access the first name of the user
-        const firstName = result[0].u_firstname;
-        console.log("First Name:", firstName);
+        const firstName = result.rows[0].u_id;
+        console.log("User Id:", firstName);
         results(null, result);
       } else {
         console.log("User is not found!");
-        results(err, null);
+        res.sendStatus(404);
       }
     }
   );
+};
+
+// to get all blogs from the database
+export const getAllBlogs = (results) => {
+  db.query("select * from blogs", (err, result) => {
+    if (err) {
+      results(err, null);
+      throw console.error("unable to fetch blogs from database");
+    } else {
+      results(null, result.rows);
+    }
+  });
 };
