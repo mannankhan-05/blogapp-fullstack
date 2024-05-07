@@ -10,10 +10,12 @@
         Login</v-btn
       >
     </router-link>
-    <v-btn color="blue-darken-4" variant="tonal" class="ml-4">
-      <v-icon class="pr-3">mdi-account-plus</v-icon>
-      Register</v-btn
-    >
+    <router-link :to="{ name: 'register' }">
+      <v-btn color="blue-darken-4" variant="tonal" class="ml-4">
+        <v-icon class="pr-3">mdi-account-plus</v-icon>
+        Register</v-btn
+      >
+    </router-link>
   </v-app-bar>
 </template>
 
