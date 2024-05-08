@@ -1,9 +1,11 @@
 <template>
   <v-sheet class="pa-12 custom-height">
     <v-card class="mx-auto px-6 py-8 custom-width" max-width="550">
+      <h2 class="mb-3 font-weight-medium text-decoration-underline">Login</h2>
       <v-form v-model="form" @submit.prevent="onSubmit">
         <v-text-field
           v-model="email"
+          type="email"
           :readonly="loading"
           :rules="[required]"
           class="mb-2"
@@ -14,6 +16,7 @@
 
         <v-text-field
           v-model="password"
+          type="password"
           :readonly="loading"
           :rules="[required]"
           label="Password"
@@ -94,7 +97,7 @@ export default {
 
 .custom-width {
   width: 50%;
-  height: 75%;
+  height: 45%;
   box-shadow: 0px 0px 10px 2px black;
 }
 </style>
