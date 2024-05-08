@@ -85,11 +85,14 @@ export default {
     },
     async loginUser() {
       try {
-        await axios.post("http://localhost:3000/loginUser", {
+        let response = await axios.post("http://localhost:3000/loginUser", {
           email: this.email,
           password: this.password,
         });
-        this.$router.push("/");
+        const userId = response.data.id;
+        console.log(userId);
+
+        this.$router.push({ name: "users", params: { id: userId } });
       } catch (error) {
         this.errorMessage = "Email or Password is not found! Try again.";
 

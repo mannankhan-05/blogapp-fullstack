@@ -37,7 +37,7 @@ export const logInUser = (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.sendStatus(200);
+      res.json(result);
       console.log("User is LoggedIn successfully!");
     }
   });

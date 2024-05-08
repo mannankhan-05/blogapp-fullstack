@@ -44,13 +44,14 @@ export const signInUser = (email, password, res, results) => {
       if (err) {
         console.log("Something Unexpected Happened!.");
         results(err, null);
-        res.send(500);
+        res.sendStatus(500);
       } else if (result.rows.length > 0) {
         console.log("User is found!");
-        // Access the first name of the user
-        const firstName = result.rows[0].u_id;
-        console.log("User Id:", firstName);
-        results(null, result);
+        // Access the id of the user
+        const id = result.rows[0].u_id;
+        console.log("User Id:", id);
+        res.send({ id: id }); // sending id back as json
+        // results(null, result);
       } else {
         console.log("User is not found!");
         res.sendStatus(404);
