@@ -47,6 +47,12 @@
           </router-link>
           First
         </h4>
+        <div
+          v-if="errorMessage"
+          class="bg-red pa-1 text-center font-weight-medium mt-3"
+        >
+          {{ errorMessage }}
+        </div>
       </v-form>
     </v-card>
   </v-sheet>
@@ -63,6 +69,7 @@ export default {
     email: null,
     password: null,
     loading: false,
+    errorMessage: null,
   }),
 
   methods: {
@@ -77,11 +84,21 @@ export default {
       return !!v || "Field is required";
     },
     async loginUser() {
-      await axios.post("http://localhost:3000/loginUser", {
-        email: this.email,
-        password: this.password,
-      });
-      this.$router.push("/");
+      try {
+        await axios.post("http://localhost:3000/loginUser", {
+          email: this.email,
+          password: this.password,
+        });
+        this.$router.push("/");
+      } catch (error) {
+        this.errorMessage = "Email or Password is not found! Try again.";
+
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 2000);
+        this.email = "";
+        this.password = "";
+      }
     },
   },
 };

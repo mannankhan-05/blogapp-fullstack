@@ -42,6 +42,7 @@
           label="Email"
           placeholder="Enter your email"
           clearable
+          :error="!emailChecker"
         ></v-text-field>
 
         <v-text-field
@@ -52,6 +53,7 @@
           label="Password"
           placeholder="Enter your password"
           clearable
+          :error="!passwordChecker"
         ></v-text-field>
 
         <br />
@@ -64,6 +66,7 @@
           type="submit"
           variant="elevated"
           block
+          @click="registerUser"
         >
           Sign Up
         </v-btn>
@@ -82,6 +85,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -105,6 +110,25 @@ export default {
     },
     required(v) {
       return !!v || "Field is required";
+    },
+    async registerUser() {
+      await axios.post("http://localhost:3000/registerUser", {
+        firstname: this.firstname,
+        lastname: this.lastname,
+        age: this.age,
+        email: this.email,
+        password: this.password,
+      });
+
+      this.$router.push("/");
+    },
+  },
+  computed: {
+    passwordChecker() {
+      return this.password.length >= 8;
+    },
+    emailChecker() {
+      return this.email.includes("@");
     },
   },
 };
