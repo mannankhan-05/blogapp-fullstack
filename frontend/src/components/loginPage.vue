@@ -92,6 +92,9 @@ export default {
           password: this.password,
         });
 
+        //     // emmiting an event to notify the parent component that the user is loggedIn.
+        //     // this.$emit("login-success");
+
         const userId = response.data.id;
         console.log(userId);
 
@@ -105,6 +108,7 @@ export default {
         this.email = "";
         this.password = "";
       }
+      // this.$store.dispatch("login");
     },
   },
 };

@@ -1,7 +1,9 @@
 <template>
   <v-app>
+    <!-- binding this loggedIn value to the MyNavbar component -->
     <MyNavbar />
     <v-main>
+      <!-- when the user is successfully loggedIn the loggedIn value is set to true -->
       <router-view />
     </v-main>
   </v-app>
@@ -17,7 +19,7 @@ export default {
   },
 
   data: () => ({
-    //
+    // loggedIn: false,
   }),
 };
 </script>
