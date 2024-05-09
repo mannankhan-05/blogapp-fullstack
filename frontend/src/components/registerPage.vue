@@ -77,7 +77,7 @@
         </v-btn>
         <h4 class="mt-10 ml-9">
           If You Already Have An Account Then
-          <router-link :to="{ name: 'login' }">
+          <router-link :to="{ name: 'home' }">
             <v-btn color="bg-blue-lighten-3 font-weight-bold" variant="tonal">
               SIGN IN
             </v-btn>

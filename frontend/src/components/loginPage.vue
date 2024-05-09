@@ -91,6 +91,7 @@ export default {
           email: this.email,
           password: this.password,
         });
+
         const userId = response.data.id;
         console.log(userId);
 
