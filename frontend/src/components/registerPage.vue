@@ -6,6 +6,7 @@
       </h2>
       <v-form v-model="form" @submit.prevent="onSubmit">
         <v-text-field
+          prepend-inner-icon="mdi-account-circle"
           v-model="firstname"
           :readonly="loading"
           :rules="[required]"
@@ -16,6 +17,7 @@
         ></v-text-field>
 
         <v-text-field
+          prepend-inner-icon="mdi-account-circle"
           v-model="lastname"
           :readonly="loading"
           :rules="[required]"
@@ -25,6 +27,7 @@
         ></v-text-field>
 
         <v-text-field
+          prepend-inner-icon="mdi-account-circle"
           v-model="age"
           type="number"
           :readonly="loading"
@@ -35,6 +38,7 @@
         ></v-text-field>
 
         <v-text-field
+          prepend-inner-icon="mdi-email-outline"
           v-model="email"
           type="email"
           :readonly="loading"
@@ -46,6 +50,7 @@
         ></v-text-field>
 
         <v-text-field
+          prepend-inner-icon="mdi-key"
           v-model="password"
           type="password"
           :readonly="loading"
