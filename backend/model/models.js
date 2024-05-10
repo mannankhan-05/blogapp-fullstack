@@ -46,12 +46,12 @@ export const signInUser = (email, password, res, results) => {
         results(err, null);
         res.sendStatus(500);
       } else if (result.rows.length > 0) {
-        console.log("User is found!");
-        // Access the id of the user
+        // Access the id, firstname(0), lastname(0) of the user
         const id = result.rows[0].u_id;
+        const f1 = result.rows[0].u_firstname.charAt(0);
+        const f2 = result.rows[0].u_lastname.charAt(0);
         console.log("User Id:", id);
-        res.send({ id: id }); // sending id back as json
-        // results(null, result);
+        res.send({ id: id, f1: f1, f2: f2 }); // sending back data as json
       } else {
         console.log("User is not found!");
         res.sendStatus(404);
