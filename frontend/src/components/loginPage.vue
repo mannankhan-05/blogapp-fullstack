@@ -61,54 +61,54 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "loginPage",
 
   data: () => ({
     form: false,
-    email: null,
-    password: null,
     loading: false,
-    errorMessage: null,
   }),
 
   methods: {
     onSubmit() {
       if (!this.form) return;
-
       this.loading = true;
-
       setTimeout(() => (this.loading = false), 2000);
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password,
+      });
     },
     required(v) {
       return !!v || "Field is required";
     },
     async loginUser() {
-      try {
-        let response = await axios.post("http://localhost:3000/loginUser", {
-          email: this.email,
-          password: this.password,
-        });
+      const { email, password } = this;
+      this.$store.dispatch("login", { email, password, router: this.$router });
+    },
+  },
 
-        //     // emmiting an event to notify the parent component that the user is loggedIn.
-        //     // this.$emit("login-success");
-
-        const userId = response.data.id;
-        console.log(userId);
-
-        this.$router.push({ name: "users", params: { id: userId } });
-      } catch (error) {
-        this.errorMessage = "Email or Password is not found! Try again.";
-
-        setTimeout(() => {
-          this.errorMessage = null;
-        }, 2000);
-        this.email = "";
-        this.password = "";
-      }
-      // this.$store.dispatch("login");
+  computed: {
+    email: {
+      get() {
+        return this.$store.state.email;
+      },
+      set(newValue) {
+        this.$store.commit("setEmail", newValue);
+      },
+    },
+    password: {
+      get() {
+        return this.$store.state.password;
+      },
+      set(newValue) {
+        this.$store.commit("setPassword", newValue);
+      },
+    },
+    errorMessage() {
+      return this.$store.state.errorMessage;
     },
   },
 };
