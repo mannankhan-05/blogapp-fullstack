@@ -6,7 +6,7 @@ export default createStore({
     email: "", // Initializing email state variable as an empty string.
     password: "", // Initializing password state variable as an empty string.
     errorMessage: null, // Initializing errorMessage state variable as null.
-    isLoggedIn: false, // Initializing isLoggedIn state variable as false, indicating the user is not logged in initially.
+    isLoggedIn: localStorage.getItem("isLoggedIn") === "true",
   },
   mutations: {
     setEmail(state, email) {
@@ -17,6 +17,10 @@ export default createStore({
     },
     setErrorMessage(state, message) {
       state.errorMessage = message; // Mutation to set the value of the errorMessage state variable.
+    },
+    setIsLoggedIn(state, isLoggedIn) {
+      state.isLoggedIn = isLoggedIn;
+      localStorage.setItem("isLoggedIn", isLoggedIn);
     },
   },
   actions: {
@@ -30,6 +34,7 @@ export default createStore({
         const userId = response.data.id; // Extracting the user ID from the response data.
         console.log(userId); // Logging the user ID to the console.
         commit("setErrorMessage", null); // Committing a mutation to set the errorMessage state variable to null.
+        commit("setIsLoggedIn", true);
         router.push({ name: "users", params: { id: userId } }); // Redirecting the user to the "users" route with the user ID as a parameter.
       } catch (error) {
         commit("setErrorMessage", "Email or Password is not found! Try again."); // Committing a mutation to set an error message if login fails.
@@ -39,6 +44,10 @@ export default createStore({
           commit("setErrorMessage", null); // Setting the errorMessage state variable to null after a timeout of 2000 milliseconds.
         }, 2000);
       }
+    },
+    logout({ commit }) {
+      commit("setIsLoggedIn", false);
+      localStorage.removeItem("isLoggedIn");
     },
   },
 });
