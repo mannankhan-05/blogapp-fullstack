@@ -73,19 +73,21 @@ export default {
 
   methods: {
     onSubmit() {
-      if (!this.form) return;
-      this.loading = true;
-      setTimeout(() => (this.loading = false), 2000);
+      if (!this.form) return; // If the form is not submitted, return early.
+      this.loading = true; // Set loading state to true to indicate loading is in progress.
+      setTimeout(() => (this.loading = false), 2000); // Simulate loading for 2 seconds.
+      // Dispatch the 'login' action with email and password data when the form is submitted.
       this.$store.dispatch("login", {
         email: this.email,
         password: this.password,
       });
     },
     required(v) {
-      return !!v || "Field is required";
+      return !!v || "Field is required"; // Validation rule: Field is required.
     },
     async loginUser() {
-      const { email, password } = this;
+      const { email, password } = this; // Destructure email and password from component data.
+      // Dispatch the 'login' action with email, password, and router data.
       this.$store.dispatch("login", { email, password, router: this.$router });
     },
   },
