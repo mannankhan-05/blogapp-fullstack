@@ -23,7 +23,7 @@
       >
     </router-link>
 
-    <router-link :to="{ name: 'login' }" v-if="isLoggedIn">
+    <router-link :to="{ name: 'createBlog' }" v-if="isLoggedIn">
       <v-btn color="blue-darken-4" variant="tonal">
         <v-icon class="pr-3">mdi-plus-box</v-icon>
         Create New Blog</v-btn
