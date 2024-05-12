@@ -1,102 +1,72 @@
 <template>
-  <v-app-bar>
-    <v-app-bar-nav-icon @click="drawer = !drawer" />
-    <v-app-bar-title class="font-weight-bold custom-font-color"
-      >Blog@myBlogs</v-app-bar-title
-    >
-
-    <div class="user-name mr-6" v-if="isLoggedIn">
-      {{ $store.state.f1 }}{{ $store.state.f2 }}
-    </div>
-
-    <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">
-      <v-btn color="blue-darken-4" variant="tonal">
-        <v-icon class="pr-3">mdi-login</v-icon>
-        Login</v-btn
+  <div>
+    <v-app-bar>
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
+      <v-app-bar-title class="font-weight-bold custom-font-color"
+        >Blog@myBlogs</v-app-bar-title
       >
-    </router-link>
 
-    <router-link :to="{ name: 'register' }" v-if="!isLoggedIn">
-      <v-btn color="blue-darken-4" variant="tonal" class="ml-4 mr-2">
-        <v-icon class="pr-3">mdi-account-plus</v-icon>
-        Register</v-btn
-      >
-    </router-link>
-
-    <router-link :to="{ name: 'createBlog' }" v-if="isLoggedIn">
-      <v-btn color="blue-darken-4" variant="tonal">
-        <v-icon class="pr-3">mdi-plus-box</v-icon>
-        Create New Blog</v-btn
-      >
-    </router-link>
-
-    <div class="text-center pa-4" v-if="isLoggedIn">
-      <v-dialog v-model="dialog" max-width="400" persistent>
-        <template v-slot:activator="{ props: activatorProps }">
-          <v-btn
-            v-bind="activatorProps"
-            color="blue-darken-4"
-            variant="tonal"
-            class="ml-2 mr-2"
-          >
-            Logout
-          </v-btn>
-        </template>
-
-        <v-card
-          prepend-icon="mdi-logout"
-          text="Are U sure You Want To Logout From Your Account ?"
-          title="Logout"
+      <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">
+        <v-btn color="blue-darken-4" variant="tonal">
+          <v-icon class="pr-3">mdi-login</v-icon>
+          Login</v-btn
         >
-          <template v-slot:actions>
-            <v-spacer></v-spacer>
+      </router-link>
 
-            <v-btn
-              @click="dialog = false"
-              variant="tonal"
-              color="black-darken-2"
-              class="font-weight-medium"
-            >
-              Cancel
-            </v-btn>
-            <router-link :to="{ name: 'home' }">
-              <v-btn
-                @click="logout"
-                variant="tonal"
-                color="blue-darken-4"
-                class="ml-2 font-weight-medium"
-              >
-                Logout
-              </v-btn>
-            </router-link>
-          </template>
-        </v-card>
-      </v-dialog>
-    </div>
+      <router-link :to="{ name: 'register' }" v-if="!isLoggedIn">
+        <v-btn color="blue-darken-4" variant="tonal" class="ml-4 mr-2">
+          <v-icon class="pr-3">mdi-account-plus</v-icon>
+          Register</v-btn
+        >
+      </router-link>
 
-    <v-navigation-drawer v-if="drawer">
-      <template v-slot:prepend> mannan khan </template>
+      <router-link :to="{ name: 'createBlog' }" v-if="isLoggedIn">
+        <v-btn color="blue-darken-4" variant="tonal">
+          <v-icon class="pr-3">mdi-plus-box</v-icon>
+          Create New Blog</v-btn
+        >
+      </router-link>
+    </v-app-bar>
+
+    <v-navigation-drawer v-if="drawer" app class="drawer" width="320">
+      <v-list>
+        <v-list-item v-if="isLoggedIn">
+          <v-list-item-content>
+            <div class="user-name pa-3 ma-3">
+              {{ $store.state.f1 }}{{ $store.state.f2 }}
+            </div>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider v-if="isLoggedIn"></v-divider>
+
+        <v-list-item>
+          <v-list-item-content>
+            <p v-if="!isLoggedIn">You first need to sign in!</p>
+            <logoutButton v-else />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
-  </v-app-bar>
+  </div>
 </template>
 
 <script>
+import logoutButton from "./logoutButton.vue";
+
 export default {
   name: "MyNav",
+  components: {
+    logoutButton,
+  },
   data() {
     return {
-      dialog: false,
       drawer: true,
     };
   },
   computed: {
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
-    },
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch("logout"); // dispatch the logout action.
     },
   },
 };
@@ -120,5 +90,9 @@ export default {
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+}
+
+.drawer {
+  box-shadow: 0 0 5px 2px black;
 }
 </style>

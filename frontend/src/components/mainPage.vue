@@ -1,5 +1,5 @@
 <template>
-  <div>my main page</div>
+  <div class="pa-3">my main page</div>
 </template>
 
 <script>
