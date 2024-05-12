@@ -16,7 +16,7 @@
           <h2 class="text-decoration-underline ma-5">Update Users Info</h2>
           <v-card-text>
             <v-text-field
-              v-model="firstname"
+              v-model="$store.state.myfirstname"
               prepend-inner-icon=""
               type="text"
               :readonly="loading"
@@ -27,7 +27,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="lastname"
+              v-model="$store.state.mylastname"
               prepend-inner-icon=""
               type="text"
               :readonly="loading"
@@ -38,9 +38,9 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="age"
+              v-model="$store.state.myage"
               prepend-inner-icon=""
-              type="text"
+              type="number"
               :readonly="loading"
               :rules="[required]"
               label="Age"
@@ -49,9 +49,9 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="email"
+              v-model="$store.state.myemail"
               prepend-inner-icon=""
-              type="text"
+              type="email"
               :readonly="loading"
               :rules="[required]"
               label="Email"
@@ -60,9 +60,9 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="password"
+              v-model="$store.state.mypassword"
               prepend-inner-icon=""
-              type="text"
+              type="password"
               :readonly="loading"
               :rules="[required]"
               label="Password"
@@ -85,6 +85,7 @@
               variant="tonal"
               class="font-weight-bold"
               color="blue-darken-4"
+              @click="updateUserInfo"
             ></v-btn>
           </v-card-actions>
         </v-card>
@@ -97,18 +98,16 @@
 export default {
   data() {
     return {
-      openEditDialog: true,
-      firstname: "",
-      lastname: "",
-      age: "",
-      email: "",
-      password: "",
+      openEditDialog: false,
     };
   },
   computed: {
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
     },
+  },
+  methods: {
+    updateUserInfo() {},
   },
 };
 </script>

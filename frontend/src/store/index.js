@@ -1,14 +1,24 @@
 import { createStore } from "vuex"; // Importing the `createStore` function from Vuex, which is used to create a Vuex store.
 import axios from "axios"; // Importing Axios library for making HTTP requests.
+// import { lastIndexOf } from "core-js/core/array";
 
 export default createStore({
   state: {
     email: "", // Initializing email state variable as an empty string.
     password: "", // Initializing password state variable as an empty string.
+
     errorMessage: null, // Initializing errorMessage state variable as null.
+
     isLoggedIn: localStorage.getItem("isLoggedIn") === "true",
+
     f1: localStorage.getItem("f1"),
     f2: localStorage.getItem("f2"),
+
+    myfirstname: localStorage.getItem("firstname"),
+    mylastname: localStorage.getItem("lastname"),
+    myage: localStorage.getItem("age"),
+    myemail: localStorage.getItem("email"),
+    mypassword: localStorage.getItem("password"),
   },
   mutations: {
     setEmail(state, email) {
@@ -32,6 +42,26 @@ export default createStore({
       state.f2 = f2;
       localStorage.setItem("f2", f2);
     },
+    setUserFirstname(state, UserFirstname) {
+      state.myfirstname = UserFirstname;
+      localStorage.setItem("firstname", UserFirstname);
+    },
+    setUserLastname(state, UserLastname) {
+      state.mylastname = UserLastname;
+      localStorage.setItem("lastname", UserLastname);
+    },
+    setUserAge(state, UserAge) {
+      state.myage = UserAge;
+      localStorage.setItem("age", UserAge);
+    },
+    setUserEmail(state, UserEmail) {
+      state.myemail = UserEmail;
+      localStorage.setItem("email", UserEmail);
+    },
+    setUserPassword(state, UserPassword) {
+      state.mypassword = UserPassword;
+      localStorage.setItem("password", UserPassword);
+    },
   },
   actions: {
     async login({ state, commit }, { email, password, router }) {
@@ -47,8 +77,13 @@ export default createStore({
 
         const f1 = response.data.f1;
         const f2 = response.data.f2;
-
         console.log(f1, f2);
+
+        const user_firstname = response.data.firstname;
+        const user_lastname = response.data.lastname;
+        const user_age = response.data.age;
+        const user_email = response.data.email;
+        const user_password = response.data.password;
 
         // Extract f1 and f2 from response data and store in the state.
         commit("setF1", f1);
@@ -56,6 +91,12 @@ export default createStore({
 
         commit("setErrorMessage", null); // Committing a mutation to set the errorMessage state variable to null.
         commit("setIsLoggedIn", true);
+
+        commit("setUserFirstname", user_firstname);
+        commit("setUserLastname", user_lastname);
+        commit("setUserAge", user_age);
+        commit("setUserEmail", user_email);
+        commit("setUserPassword", user_password);
 
         router.push({ name: "users", params: { id: userId } }); // Redirecting the user to the "users" route with the user ID as a parameter.
       } catch (error) {
@@ -70,6 +111,15 @@ export default createStore({
     logout({ commit }) {
       commit("setIsLoggedIn", false);
       localStorage.removeItem("isLoggedIn");
+
+      localStorage.removeItem("f1");
+      localStorage.removeItem("f2");
+
+      localStorage.removeItem("firstname");
+      localStorage.removeItem("lastname");
+      localStorage.removeItem("age");
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
     },
   },
 });

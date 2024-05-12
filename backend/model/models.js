@@ -50,8 +50,25 @@ export const signInUser = (email, password, res, results) => {
         const id = result.rows[0].u_id;
         const f1 = result.rows[0].u_firstname.charAt(0);
         const f2 = result.rows[0].u_lastname.charAt(0);
+
+        const firstname = result.rows[0].u_firstname;
+        const lastname = result.rows[0].u_lastname;
+        const age = result.rows[0].u_age;
+        const email = result.rows[0].u_email;
+        const password = result.rows[0].u_password;
+
+        res.send({
+          firstname: firstname,
+          lastname: lastname,
+          age: age,
+          email: email,
+          password: password,
+          id: id,
+          f1: f1,
+          f2: f2,
+        });
+
         console.log("User Id:", id);
-        res.send({ id: id, f1: f1, f2: f2 }); // sending back data as json
       } else {
         console.log("User is not found!");
         res.sendStatus(404);
