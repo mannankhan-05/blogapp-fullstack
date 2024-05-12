@@ -6,7 +6,7 @@
         >Blog@myBlogs</v-app-bar-title
       >
 
-      <div class="user-name pa-3 ma-3">
+      <div v-if="isLoggedIn" class="user-name pa-3 ma-3">
         {{ $store.state.f1 }}{{ $store.state.f2 }}
       </div>
 
@@ -29,7 +29,12 @@
       <v-list>
         <v-list-item v-if="isLoggedIn">
           <v-list-item-content>
-            <addBlog />
+            <div class="mb-3 mt-3">
+              <updLoggedUser />
+            </div>
+            <div>
+              <addBlog />
+            </div>
           </v-list-item-content>
         </v-list-item>
 
@@ -49,12 +54,14 @@
 <script>
 import logoutButton from "./logoutButton.vue";
 import addBlog from "./addBlog.vue";
+import updLoggedUser from "./updLoggedUser.vue";
 
 export default {
   name: "MyNav",
   components: {
     logoutButton,
     addBlog,
+    updLoggedUser,
   },
   data() {
     return {
