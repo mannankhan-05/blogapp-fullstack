@@ -6,6 +6,10 @@
         >Blog@myBlogs</v-app-bar-title
       >
 
+      <div class="user-name pa-3 ma-3">
+        {{ $store.state.f1 }}{{ $store.state.f2 }}
+      </div>
+
       <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">
         <v-btn color="blue-darken-4" variant="tonal">
           <v-icon class="pr-3">mdi-login</v-icon>
@@ -19,22 +23,13 @@
           Register</v-btn
         >
       </router-link>
-
-      <router-link :to="{ name: 'createBlog' }" v-if="isLoggedIn">
-        <v-btn color="blue-darken-4" variant="tonal">
-          <v-icon class="pr-3">mdi-plus-box</v-icon>
-          Create New Blog</v-btn
-        >
-      </router-link>
     </v-app-bar>
 
     <v-navigation-drawer v-if="drawer" app class="drawer" width="320">
       <v-list>
         <v-list-item v-if="isLoggedIn">
           <v-list-item-content>
-            <div class="user-name pa-3 ma-3">
-              {{ $store.state.f1 }}{{ $store.state.f2 }}
-            </div>
+            <addBlog />
           </v-list-item-content>
         </v-list-item>
 
@@ -53,11 +48,13 @@
 
 <script>
 import logoutButton from "./logoutButton.vue";
+import addBlog from "./addBlog.vue";
 
 export default {
   name: "MyNav",
   components: {
     logoutButton,
+    addBlog,
   },
   data() {
     return {
