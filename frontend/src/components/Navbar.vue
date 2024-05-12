@@ -1,6 +1,6 @@
 <template>
   <v-app-bar>
-    <v-app-bar-nav-icon />
+    <v-app-bar-nav-icon @click="drawer = !drawer" />
     <v-app-bar-title class="font-weight-bold custom-font-color"
       >Blog@myBlogs</v-app-bar-title
     >
@@ -73,6 +73,10 @@
         </v-card>
       </v-dialog>
     </div>
+
+    <v-navigation-drawer v-if="drawer">
+      <template v-slot:prepend> mannan khan </template>
+    </v-navigation-drawer>
   </v-app-bar>
 </template>
 
@@ -82,6 +86,7 @@ export default {
   data() {
     return {
       dialog: false,
+      drawer: true,
     };
   },
   computed: {
