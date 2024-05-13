@@ -1,6 +1,7 @@
 import {
   getAllUsers,
   insertUser,
+  updateUser,
   signInUser,
   getAllBlogs,
   insertBlog,
@@ -27,6 +28,19 @@ export const addUser = (req, res) => {
     } else {
       res.sendStatus(200);
       console.log("User is registered successfully!");
+    }
+  });
+};
+
+export const editUser = (req, res) => {
+  const id = req.params.id;
+  const { firstname, lastname, age, email, password } = req.body;
+  updateUser(firstname, lastname, age, email, password, id, (err, result) => {
+    if (err) {
+      console.log("an error occured while updating!.");
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
     }
   });
 };

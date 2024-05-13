@@ -1,6 +1,7 @@
 import {
   showAllUsers,
   addUser,
+  editUser,
   logInUser,
   showAllBlogs,
   addBlog,
@@ -15,6 +16,8 @@ const router = express.Router();
 router.get("/", showAllUsers);
 
 router.post("/registerUser", addUser);
+
+router.put("/updateUser/:id", editUser);
 
 router.post("/loginUser", logInUser);
 

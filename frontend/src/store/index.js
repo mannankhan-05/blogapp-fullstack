@@ -19,6 +19,8 @@ export default createStore({
     myage: localStorage.getItem("age"),
     myemail: localStorage.getItem("email"),
     mypassword: localStorage.getItem("password"),
+
+    loggedInUserId: localStorage.getItem("id"),
   },
   mutations: {
     setEmail(state, email) {
@@ -62,6 +64,10 @@ export default createStore({
       state.mypassword = UserPassword;
       localStorage.setItem("password", UserPassword);
     },
+    setUserId(state, id) {
+      state.loggedInUserId = id;
+      localStorage.setItem("id", id);
+    },
   },
   actions: {
     async login({ state, commit }, { email, password, router }) {
@@ -74,6 +80,7 @@ export default createStore({
 
         const userId = response.data.id; // Extracting the user ID from the response data.
         console.log(userId); // Logging the user ID to the console.
+        commit("setUserId", userId);
 
         const f1 = response.data.f1;
         const f2 = response.data.f2;
@@ -120,6 +127,8 @@ export default createStore({
       localStorage.removeItem("age");
       localStorage.removeItem("email");
       localStorage.removeItem("password");
+
+      localStorage.removeItem("id");
     },
   },
 });

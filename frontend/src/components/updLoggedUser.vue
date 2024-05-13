@@ -95,6 +95,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -107,7 +109,22 @@ export default {
     },
   },
   methods: {
-    updateUserInfo() {},
+    async updateUserInfo() {
+      await axios.put(
+        `http://localhost:3000/updateUser/${this.$store.state.loggedInUserId}`,
+        {
+          firstname: this.$store.state.myfirstname,
+          lastname: this.$store.state.mylastname,
+          age: this.$store.state.myage,
+          email: this.$store.state.myemail,
+          password: this.$store.state.mypassword,
+        }
+      );
+      this.openEditDialog = false;
+      setTimeout(() => {
+        this.$router.push("/login");
+      }, 1000);
+    },
   },
 };
 </script>
