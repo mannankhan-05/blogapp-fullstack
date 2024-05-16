@@ -16,7 +16,18 @@
       >
         <h6 class="pa-0 mb-2">{{ blogs.b_id }}</h6>
         <div v-if="editBlog" class="editButton">
-          <v-icon icon="mdi-pencil-circle-outline"></v-icon>
+          <v-icon
+            @click="OpenEditDialog(blogs)"
+            icon="mdi-pencil-circle-outline"
+            color="green-darken-4"
+          ></v-icon>
+        </div>
+        <div v-if="editBlog" class="deleteButton">
+          <v-icon
+            @click="deleteBlog(blogs)"
+            icon="mdi-alpha-x-circle"
+            color="red-darken-4"
+          ></v-icon>
         </div>
         <h2 class="text-decoration-underline mb-3">{{ blogs.b_title }}</h2>
         <img :src="require(`@/assets/${blogs.b_picture}`)" class="mb-2 image" />
@@ -27,6 +38,68 @@
         </h5>
       </v-card>
     </div>
+
+    <v-dialog
+      v-model="openEditDialog"
+      persistent
+      width="600"
+      class="custom-height"
+    >
+      <template v-slot:default="{}">
+        <v-card>
+          <h2 class="text-decoration-underline ma-5">Create A New Blog</h2>
+          <v-card-text>
+            <v-text-field
+              v-model="selectedBlog.b_title"
+              type="text"
+              :readonly="loading"
+              :rules="[required]"
+              label="Title"
+              placeholder="Edit title of blog"
+              clearable
+            ></v-text-field>
+
+            <v-text-field
+              v-model="selectedBlog.b_author"
+              type="text"
+              :readonly="loading"
+              :rules="[required]"
+              label="Author"
+              placeholder="Edit author name"
+              clearable
+            ></v-text-field>
+
+            <v-textarea
+              v-model="selectedBlog.b_description"
+              type="text"
+              :readonly="loading"
+              :rules="[required]"
+              label="Description"
+              placeholder="Edit description of blog"
+              clearable
+            ></v-textarea>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn
+              text="Close"
+              variant="tonal"
+              class="font-weight-bold"
+              @click="openEditDialog = false"
+            ></v-btn>
+            <v-btn
+              text="Update"
+              variant="tonal"
+              class="font-weight-bold"
+              color="blue-darken-4"
+              @click="updateBlog"
+            ></v-btn>
+          </v-card-actions>
+        </v-card>
+      </template>
+    </v-dialog>
   </div>
 </template>
 
@@ -37,7 +110,10 @@ export default {
   data() {
     return {
       AllBlogs: [],
-      editBlog: false,
+      editBlog: true,
+      openEditDialog: false,
+      // the blog i am selecting to edit
+      selectedBlog: null,
     };
   },
   async mounted() {
@@ -45,6 +121,39 @@ export default {
     response.data.forEach((blog) => {
       this.AllBlogs.push(blog);
     });
+  },
+
+  methods: {
+    OpenEditDialog(blog) {
+      this.selectedBlog = blog;
+      this.openEditDialog = true;
+    },
+    async updateBlog() {
+      await axios.put(
+        `http://localhost:3000/updateBlog/${this.selectedBlog.b_id}`,
+        {
+          title: this.selectedBlog.b_title,
+          author: this.selectedBlog.b_author,
+          description: this.selectedBlog.b_description,
+        }
+      );
+      this.openEditDialog = false;
+    },
+    async deleteBlog(blog) {
+      this.selectedBlog = blog;
+      try {
+        await axios.delete(
+          `http://localhost:3000/deleteBlog/${this.selectedBlog.b_id}`
+        );
+        // Remove the deleted blog from AllBlogs array
+        const index = this.AllBlogs.findIndex((b) => b.b_id === blog.b_id);
+        if (index !== -1) {
+          this.AllBlogs.splice(index, 1);
+        }
+      } catch (error) {
+        console.error("Error deleting blog:", error);
+      }
+    },
   },
 };
 </script>
@@ -87,11 +196,21 @@ export default {
 
 .editButton {
   position: absolute;
-  right: 2%;
+  right: 11%;
   top: 2%;
   font-size: 20px;
 }
 .editButton:hover {
+  cursor: pointer;
+}
+
+.deleteButton {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+  font-size: 20px;
+}
+.deleteButton:hover {
   cursor: pointer;
 }
 </style>
