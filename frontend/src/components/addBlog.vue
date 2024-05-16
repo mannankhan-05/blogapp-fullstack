@@ -49,11 +49,11 @@
             ></v-textarea>
           </v-card-text>
 
-          <v-file-input
+          <!-- <v-file-input
             clearable
             label="File input"
             v-model="picture"
-          ></v-file-input>
+          ></v-file-input> -->
 
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -88,7 +88,6 @@ export default {
       title: "",
       author: "",
       description: "",
-      picture: "",
     };
   },
   computed: {
@@ -102,9 +101,8 @@ export default {
         title: this.title,
         author: this.author,
         description: this.description,
+        // picture: this.picture.name,
       });
-      console.log(this.picture);
-
       this.title = "";
       this.author = "";
       this.description = "";
