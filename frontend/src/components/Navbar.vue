@@ -2,14 +2,20 @@
   <div>
     <v-app-bar>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <v-app-bar-title class="font-weight-bold custom-font-color"
-        >Blog@myBlogs</v-app-bar-title
-      >
+      <div>
+        <router-link :to="{ name: 'home' }">
+          <v-icon
+            icon="mdi-shield-home"
+            class="icon ml-5"
+            color="blue-darken-3"
+          ></v-icon>
+        </router-link>
+      </div>
 
+      <v-spacer></v-spacer>
       <div v-if="isLoggedIn" class="user-name pa-3 ma-3">
         {{ $store.state.f1 }}{{ $store.state.f2 }}
       </div>
-
       <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">
         <v-btn color="blue-darken-4" variant="tonal">
           <v-icon class="pr-3">mdi-login</v-icon>
@@ -98,5 +104,9 @@ export default {
 
 .drawer {
   box-shadow: 0 0 5px 2px black;
+}
+
+.icon {
+  font-size: 40px;
 }
 </style>
