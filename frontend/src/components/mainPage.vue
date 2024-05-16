@@ -110,7 +110,7 @@ export default {
   data() {
     return {
       AllBlogs: [],
-      editBlog: true,
+      editBlog: false,
       openEditDialog: false,
       // the blog i am selecting to edit
       selectedBlog: null,
