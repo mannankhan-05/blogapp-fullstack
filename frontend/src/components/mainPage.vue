@@ -133,7 +133,7 @@ export default {
     OpenEditDialog(blog) {
       this.selectedBlog = blog;
       this.openEditDialog = true;
-      console.log(this.openEditDialog);
+      // console.log("blog picture name: ", this.selectedBlog.b_picture);
     },
     async updateBlog() {
       await axios.put(
