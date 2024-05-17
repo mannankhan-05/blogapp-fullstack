@@ -40,7 +40,7 @@
     </div>
 
     <v-dialog
-      v-model="openEditDialog"
+      v-if="openEditDialog"
       persistent
       width="600"
       class="custom-height"
