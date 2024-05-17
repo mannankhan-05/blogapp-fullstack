@@ -40,10 +40,10 @@
     </div>
 
     <v-dialog
-      v-if="openEditDialog"
       persistent
       width="600"
       class="custom-height"
+      v-model="openEditDialog"
     >
       <template v-slot:default="{}">
         <v-card>
@@ -78,6 +78,12 @@
               placeholder="Edit description of blog"
               clearable
             ></v-textarea>
+
+            <!-- <v-file-input
+              v-model="selectedBlog.b_picture"
+              label="Blog Photo"
+              placeholder="Choose Blog Photo"
+            ></v-file-input> -->
           </v-card-text>
 
           <v-card-actions>
@@ -127,6 +133,7 @@ export default {
     OpenEditDialog(blog) {
       this.selectedBlog = blog;
       this.openEditDialog = true;
+      console.log(this.openEditDialog);
     },
     async updateBlog() {
       await axios.put(
@@ -135,6 +142,7 @@ export default {
           title: this.selectedBlog.b_title,
           author: this.selectedBlog.b_author,
           description: this.selectedBlog.b_description,
+          // picture: this.selectedBlog.b_picture.name,
         }
       );
       this.openEditDialog = false;
