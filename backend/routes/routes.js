@@ -3,12 +3,14 @@ import {
   addUser,
   editUser,
   logInUser,
+} from "../controller/users.js";
+import {
   showAllBlogs,
-  addBlog,
   showSingleBlog,
+  addBlog,
   editBlog,
   removeBlog,
-} from "../controller/controllers.js";
+} from "../controller/blogs.js";
 
 import express from "express";
 const router = express.Router();

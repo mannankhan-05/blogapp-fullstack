@@ -9,4 +9,6 @@ const db = new Client({
   database: "blogdata",
 });
 
+db.connect();
+
 export default db;
