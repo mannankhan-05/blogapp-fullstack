@@ -12,6 +12,17 @@ export const getAllBlogs = (results) => {
   });
 };
 
+// to display 3 blogs on main page
+export const display3Blogs = (results) => {
+  db.query("select * from blogs limit 3", (err, result) => {
+    if (err) {
+      results(err, null);
+    } else {
+      results(null, result.rows);
+    }
+  });
+};
+
 // to get a single blog by id
 export const getSingleBlog = (id, results) => {
   db.query("select * from blogs where b_id = $1", [id], (err, result) => {
@@ -25,17 +36,10 @@ export const getSingleBlog = (id, results) => {
 };
 
 // to insert a new blog in the database
-export const insertBlog = (
-  title,
-  author,
-  description,
-  date,
-  picture,
-  results
-) => {
+export const insertBlog = (title, author, description, picture, results) => {
   db.query(
-    "insert into blogs(b_title, b_author, b_description, b_date, b_picture) values($1, $2, $3, $4, $5)",
-    [title, author, description, date, picture],
+    "insert into blogs(b_title, b_author, b_description, b_picture) values($1, $2, $3, $4)",
+    [title, author, description, picture],
     (err, result) => {
       if (err) {
         console.log("facing error on adding a new blog.");

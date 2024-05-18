@@ -4,12 +4,23 @@ import {
   getSingleBlog,
   updateBlog,
   deleteBlog,
+  display3Blogs,
 } from "../model/blogs.js";
 
 export const showAllBlogs = (req, res) => {
   getAllBlogs((err, result) => {
     if (err) {
       res.send(500);
+    } else {
+      res.json(result);
+    }
+  });
+};
+
+export const show3Blogs = (req, res) => {
+  display3Blogs((err, result) => {
+    if (err) {
+      res.sendStatus(500);
     } else {
       res.json(result);
     }
@@ -28,8 +39,8 @@ export const showSingleBlog = (req, res) => {
 };
 
 export const addBlog = (req, res) => {
-  const { title, author, description, date, picture } = req.body;
-  insertBlog(title, author, description, date, picture, (err, result) => {
+  const { title, author, description, picture } = req.body;
+  insertBlog(title, author, description, picture, (err, result) => {
     if (err) {
       res.sendStatus(500);
     } else {

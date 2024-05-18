@@ -1,16 +1,62 @@
 <template>
-  <div class="ma-3">
-    <v-expansion-panels class="expand">
-      <v-expansion-panel
-        title="Expand"
-        text="If you have an account SIGN IN else SIGN UP first"
-      ></v-expansion-panel>
-    </v-expansion-panels>
-  </div>
+  <v-container>
+    <div class="ma-3">
+      <h2 class="mt-5 mb-0 text-decoration-underline font-weight-black">
+        Sample Blogs
+      </h2>
+
+      <v-row>
+        <v-col cols="4" v-for="blog in sampleBlogs" :key="blog.b_id" xs="12">
+          <v-sheet
+            :height="400"
+            :width="400"
+            color="grey-lighten-2 mt-5"
+            class="pa-6 rounded"
+          >
+            <p class="text-right pt-0">
+              {{ formattedDate(blog.b_date) }}
+            </p>
+            <h2 class="pt-0 text-decoration-underline">{{ blog.b_title }}</h2>
+            <div>
+              <img
+                class="rounded"
+                :src="require(`@/assets/${blog.b_picture}`)"
+                :width="350"
+                :height="250"
+              />
+            </div>
+            <div class="font-weight-medium">{{ blog.b_description }}</div>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </div>
+  </v-container>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      sampleBlogs: [],
+    };
+  },
+
+  async mounted() {
+    let response = await axios.get("http://localhost:3000/blogs");
+    response.data.forEach((blog) => {
+      this.sampleBlogs.push(blog);
+    });
+  },
+
+  methods: {
+    formattedDate(dateString) {
+      const options = { year: "numeric", month: "short", day: "numeric" };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    },
+  },
+};
 </script>
 
 <style>

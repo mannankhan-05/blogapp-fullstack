@@ -10,6 +10,7 @@ import {
   addBlog,
   editBlog,
   removeBlog,
+  show3Blogs,
 } from "../controller/blogs.js";
 
 import express from "express";
@@ -24,6 +25,8 @@ router.put("/updateUser/:id", editUser);
 router.post("/loginUser", logInUser);
 
 router.get("/allBlogs", showAllBlogs);
+
+router.get("/blogs", show3Blogs);
 
 router.get("/blog/:id", showSingleBlog);
 

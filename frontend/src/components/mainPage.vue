@@ -47,7 +47,7 @@
     >
       <template v-slot:default="{}">
         <v-card>
-          <h2 class="text-decoration-underline ma-5">Create A New Blog</h2>
+          <h2 class="text-decoration-underline ma-5">Update Blog</h2>
           <v-card-text>
             <v-text-field
               v-model="selectedBlog.b_title"
