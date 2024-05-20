@@ -50,10 +50,17 @@ export const getSingleBlog = (id, results) => {
 };
 
 // to insert a new blog in the database
-export const insertBlog = (title, author, description, picture, results) => {
+export const insertBlog = (
+  title,
+  author,
+  description,
+  picture,
+  userId,
+  results
+) => {
   db.query(
-    "insert into blogs(b_title, b_author, b_description, b_picture) values($1, $2, $3, $4)",
-    [title, author, description, picture],
+    "insert into blogs(b_title, b_author, b_description, b_picture, user_blog_id) values($1, $2, $3, $4, $5)",
+    [title, author, description, picture, userId],
     (err, result) => {
       if (err) {
         console.log("facing error on adding a new blog.");

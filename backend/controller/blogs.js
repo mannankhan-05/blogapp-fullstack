@@ -52,7 +52,8 @@ export const showSingleBlog = (req, res) => {
 
 export const addBlog = (req, res) => {
   const { title, author, description, picture } = req.body;
-  insertBlog(title, author, description, picture, (err, result) => {
+  const userId = req.params.id;
+  insertBlog(title, author, description, picture, userId, (err, result) => {
     if (err) {
       res.sendStatus(500);
     } else {

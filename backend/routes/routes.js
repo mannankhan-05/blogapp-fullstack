@@ -33,7 +33,7 @@ router.get("/blogs", show3Blogs);
 
 router.get("/blog/:id", showSingleBlog);
 
-router.post("/postBlog", addBlog);
+router.post("/postBlog/:id", addBlog);
 
 router.put("/updateBlog/:id", editBlog);
 

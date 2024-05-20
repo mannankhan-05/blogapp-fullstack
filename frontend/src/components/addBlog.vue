@@ -54,6 +54,9 @@
             label="File input"
             v-model="picture"
           ></v-file-input>
+          <p class="text-caption font-weight-medium ml-10 mt-0">
+            Once you upload the blog photo. you will not be able to change it
+          </p>
 
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -98,12 +101,16 @@ export default {
   },
   methods: {
     async createBlog() {
-      await axios.post("http://localhost:3000/postBlog", {
-        title: this.title,
-        author: this.author,
-        description: this.description,
-        picture: this.picture.name,
-      });
+      await axios.post(
+        `http://localhost:3000/postBlog/${this.$store.state.loggedInUserId}`,
+        {
+          title: this.title,
+          author: this.author,
+          description: this.description,
+          picture: this.picture.name,
+          userId: this.$store.state.loggedInUserId,
+        }
+      );
       this.title = "";
       this.author = "";
       this.description = "";
