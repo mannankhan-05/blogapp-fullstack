@@ -1,5 +1,6 @@
 import {
   getAllBlogs,
+  getUserBlogs,
   insertBlog,
   getSingleBlog,
   updateBlog,
@@ -11,6 +12,17 @@ export const showAllBlogs = (req, res) => {
   getAllBlogs((err, result) => {
     if (err) {
       res.send(500);
+    } else {
+      res.json(result);
+    }
+  });
+};
+
+export const displayUserBlogs = (req, res) => {
+  const id = req.params.id;
+  getUserBlogs(id, (err, result) => {
+    if (err) {
+      res.sendStatus(500);
     } else {
       res.json(result);
     }

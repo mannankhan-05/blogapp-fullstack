@@ -78,12 +78,6 @@
               placeholder="Edit description of blog"
               clearable
             ></v-textarea>
-
-            <!-- <v-file-input
-              v-model="selectedBlog.b_picture"
-              label="Blog Photo"
-              placeholder="Choose Blog Photo"
-            ></v-file-input> -->
           </v-card-text>
 
           <v-card-actions>
@@ -123,7 +117,9 @@ export default {
     };
   },
   async mounted() {
-    let response = await axios.get("http://localhost:3000/allBlogs");
+    let response = await axios.get(
+      `http://localhost:3000/userBlogs/${this.$store.state.loggedInUserId}`
+    );
     response.data.forEach((blog) => {
       this.AllBlogs.push(blog);
     });
@@ -133,7 +129,6 @@ export default {
     OpenEditDialog(blog) {
       this.selectedBlog = blog;
       this.openEditDialog = true;
-      // console.log("blog picture name: ", this.selectedBlog.b_picture);
     },
     async updateBlog() {
       await axios.put(
@@ -142,7 +137,6 @@ export default {
           title: this.selectedBlog.b_title,
           author: this.selectedBlog.b_author,
           description: this.selectedBlog.b_description,
-          // picture: this.selectedBlog.b_picture.name,
         }
       );
       this.openEditDialog = false;

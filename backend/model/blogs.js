@@ -12,6 +12,20 @@ export const getAllBlogs = (results) => {
   });
 };
 
+export const getUserBlogs = (id, results) => {
+  db.query(
+    "select * from blogs where user_blog_id = $1",
+    [id],
+    (err, result) => {
+      if (err) {
+        results(err, null);
+      } else {
+        results(null, result.rows);
+      }
+    }
+  );
+};
+
 // to display 3 blogs on main page
 export const display3Blogs = (results) => {
   db.query("select * from blogs limit 3", (err, result) => {

@@ -6,6 +6,7 @@ import {
 } from "../controller/users.js";
 import {
   showAllBlogs,
+  displayUserBlogs,
   showSingleBlog,
   addBlog,
   editBlog,
@@ -25,6 +26,8 @@ router.put("/updateUser/:id", editUser);
 router.post("/loginUser", logInUser);
 
 router.get("/allBlogs", showAllBlogs);
+
+router.get("/userBlogs/:id", displayUserBlogs);
 
 router.get("/blogs", show3Blogs);
 
