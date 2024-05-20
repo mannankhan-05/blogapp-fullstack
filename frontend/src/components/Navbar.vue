@@ -31,7 +31,12 @@
       </router-link>
     </v-app-bar>
 
-    <v-navigation-drawer v-if="drawer" app class="drawer" width="320">
+    <v-navigation-drawer
+      v-if="drawer && isLoggedIn"
+      app
+      class="drawer"
+      width="320"
+    >
       <v-list>
         <v-list-item v-if="isLoggedIn">
           <v-list-item-content>
