@@ -7,7 +7,6 @@ import {
 import {
   showAllBlogs,
   displayUserBlogs,
-  showSingleBlog,
   addBlog,
   editBlog,
   removeBlog,
@@ -30,8 +29,6 @@ router.get("/allBlogs", showAllBlogs);
 router.get("/userBlogs/:id", displayUserBlogs);
 
 router.get("/blogs", show3Blogs);
-
-router.get("/blog/:id", showSingleBlog);
 
 router.post("/postBlog/:id", addBlog);
 

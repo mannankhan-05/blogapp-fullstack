@@ -37,18 +37,6 @@ export const display3Blogs = (results) => {
   });
 };
 
-// to get a single blog by id
-export const getSingleBlog = (id, results) => {
-  db.query("select * from blogs where b_id = $1", [id], (err, result) => {
-    if (err) {
-      console.log("error occured while fetchind the single blog.");
-      results(err, null);
-    } else {
-      results(null, result.rows);
-    }
-  });
-};
-
 // to insert a new blog in the database
 export const insertBlog = (
   title,

@@ -2,7 +2,6 @@ import {
   getAllBlogs,
   getUserBlogs,
   insertBlog,
-  getSingleBlog,
   updateBlog,
   deleteBlog,
   display3Blogs,
@@ -31,17 +30,6 @@ export const displayUserBlogs = (req, res) => {
 
 export const show3Blogs = (req, res) => {
   display3Blogs((err, result) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.json(result);
-    }
-  });
-};
-
-export const showSingleBlog = (req, res) => {
-  const id = req.params.id;
-  getSingleBlog(id, (err, result) => {
     if (err) {
       res.sendStatus(500);
     } else {

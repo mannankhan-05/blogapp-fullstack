@@ -9,7 +9,7 @@
         <v-col cols="4" v-for="blog in sampleBlogs" :key="blog.b_id" xs="12">
           <v-sheet
             :height="400"
-            :width="400"
+            :width="350"
             color="grey-lighten-2 mt-5"
             class="pa-6 rounded"
           >
@@ -21,8 +21,8 @@
               <img
                 class="rounded"
                 :src="require(`@/assets/${blog.b_picture}`)"
-                :width="350"
-                :height="250"
+                :width="300"
+                :height="200"
               />
             </div>
             <div class="font-weight-medium">{{ blog.b_description }}</div>
