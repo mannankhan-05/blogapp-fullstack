@@ -17,6 +17,7 @@ export const showAllUsers = (req, res) => {
 
 export const addUser = (req, res) => {
   const { firstname, lastname, age, email, password } = req.body;
+
   insertUser(firstname, lastname, age, email, password, (err, result) => {
     if (err) {
       res.sendStatus(500);
