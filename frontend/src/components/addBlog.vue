@@ -51,9 +51,17 @@
 
           <v-file-input
             clearable
-            label="File input"
+            label="Blog Picture"
             v-model="picture"
-          ></v-file-input>
+            @change="handleFileChange($event)"
+          >
+            <template v-slot:selection="{ text }">
+              <v-avatar v-if="imageUrl" size="30" class="mr-3 rounded">
+                <img :src="imageUrl" alt="Selected Image" />
+              </v-avatar>
+              {{ text }}
+            </template>
+          </v-file-input>
           <p class="text-caption font-weight-medium ml-10 mt-0">
             Once you upload the blog photo. you will not be able to change it
           </p>
@@ -92,6 +100,7 @@ export default {
       author: "",
       description: "",
       picture: "",
+      imageUrl: "",
     };
   },
   computed: {
@@ -118,6 +127,15 @@ export default {
       setTimeout(() => {
         this.openDialog = false;
       });
+    },
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      if (file && file instanceof File) {
+        this.imageUrl = URL.createObjectURL(file);
+      } else {
+        this.imageUrl = "";
+      }
+      console.log(this.imageUrl);
     },
   },
 };
