@@ -5,6 +5,9 @@ import {
   signInUser,
 } from "../model/users.js";
 
+import bcrypt from "bcrypt";
+const salt = 10;
+
 export const showAllUsers = (req, res) => {
   getAllUsers((err, result) => {
     if (err) {
@@ -18,13 +21,20 @@ export const showAllUsers = (req, res) => {
 export const addUser = (req, res) => {
   const { firstname, lastname, age, email, password } = req.body;
 
-  insertUser(firstname, lastname, age, email, password, (err, result) => {
+  // hashing the password using bcrypt to save the password in hashed form in the database.
+  bcrypt.hash(password, salt, (err, hash) => {
     if (err) {
-      res.sendStatus(500);
-    } else {
-      res.sendStatus(200);
-      console.log("User is registered successfully!");
+      console.log(err);
     }
+
+    insertUser(firstname, lastname, age, email, hash, (err, result) => {
+      if (err) {
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+        console.log("User is registered successfully!");
+      }
+    });
   });
 };
 
