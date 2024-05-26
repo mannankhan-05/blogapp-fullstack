@@ -10,11 +10,10 @@
       <v-card
         variant="tonal"
         class="pa-2 ma-3 blog-card"
-        width="400"
+        width="370"
         v-for="blogs in AllBlogs"
         :key="blogs.b_id"
       >
-        <h6 class="pa-0 mb-2">{{ blogs.b_id }}</h6>
         <div v-if="editBlog" class="editButton">
           <v-icon
             @click="OpenEditDialog(blogs)"
@@ -200,8 +199,6 @@ export default {
   width: 100%;
   border-radius: 5px;
 }
-
-/* line 54 - 81  =>  adjusting the cards in a row as many as possible */
 .blog-container {
   display: flex;
   flex-wrap: wrap;
@@ -210,7 +207,7 @@ export default {
 
 .blog-card {
   height: 380px;
-  width: calc(50% - 20px); /* Adjust width as needed */
+  width: calc(50% - 20px);
   margin-bottom: 20px;
   border-radius: 5px;
 }

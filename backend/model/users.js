@@ -19,7 +19,6 @@ export const insertUser = (
   age,
   email,
   password,
-  // hash,
   results
 ) => {
   db.query(
