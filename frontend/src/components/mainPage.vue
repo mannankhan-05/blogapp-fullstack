@@ -17,7 +17,7 @@
         <h6 class="pa-0 mb-2">{{ blogs.b_id }}</h6>
         <div v-if="editBlog" class="editButton">
           <v-icon
-            @click="OpenEditDialog(blogs)"
+            @click="showDeleteDialog(blogs)"
             icon="mdi-pencil-circle-outline"
             color="green-darken-4"
           ></v-icon>
@@ -57,7 +57,7 @@
             No
           </v-btn>
           <v-btn
-            @click="deleteBlog(blogs)"
+            @click="deleteBlog(selectedBlog)"
             variant="tonal"
             color="blue-darken-4"
             class="ml-2 font-weight-medium"
@@ -156,6 +156,10 @@ export default {
   },
 
   methods: {
+    showDeleteDialog(blog) {
+      this.selectedBlog = blog;
+      this.removeBlogDialog = true;
+    },
     OpenEditDialog(blog) {
       this.selectedBlog = blog;
       this.openEditDialog = true;
@@ -172,7 +176,7 @@ export default {
       this.openEditDialog = false;
     },
     async deleteBlog(blog) {
-      this.selectedBlog = blog;
+      // this.selectedBlog = blog;
       try {
         await axios.delete(
           `http://localhost:3000/deleteBlog/${this.selectedBlog.b_id}`
