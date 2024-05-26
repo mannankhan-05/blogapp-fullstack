@@ -24,8 +24,8 @@
         </div>
         <div v-if="editBlog" class="deleteButton">
           <v-icon
-            @click="deleteBlog(blogs)"
-            icon="mdi-alpha-x-circle"
+            @click="removeBlogDialog = true"
+            icon="mdi-delete"
             color="red-darken-4"
           ></v-icon>
         </div>
@@ -38,6 +38,35 @@
         </h5>
       </v-card>
     </div>
+
+    <v-dialog v-model="removeBlogDialog" max-width="400" persistent>
+      <v-card
+        prepend-icon="mdi-delete"
+        text="Are U sure You Want To Delete This Blog ?"
+        title="Delete Blog"
+      >
+        <template v-slot:actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            @click="removeBlogDialog = false"
+            variant="tonal"
+            color="black-darken-2"
+            class="font-weight-medium"
+          >
+            No
+          </v-btn>
+          <v-btn
+            @click="deleteBlog(blogs)"
+            variant="tonal"
+            color="blue-darken-4"
+            class="ml-2 font-weight-medium"
+          >
+            Yes
+          </v-btn>
+        </template>
+      </v-card>
+    </v-dialog>
 
     <v-dialog
       persistent
@@ -114,6 +143,7 @@ export default {
       openEditDialog: false,
       // the blog i am selecting to edit
       selectedBlog: null,
+      removeBlogDialog: false,
     };
   },
   async mounted() {
@@ -155,6 +185,7 @@ export default {
       } catch (error) {
         console.error("Error deleting blog:", error);
       }
+      this.removeBlogDialog = false;
     },
   },
 };
