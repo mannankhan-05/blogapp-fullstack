@@ -19,8 +19,9 @@
             <h2 class="pt-0 text-decoration-underline">{{ blog.b_title }}</h2>
             <div>
               <img
-                class="rounded"
-                :src="require(`@/assets/${blog.b_picture}`)"
+                :src="blog.b_picture"
+                alt="Blog Image"
+                class="mb-2 image"
                 :width="300"
                 :height="200"
               />
