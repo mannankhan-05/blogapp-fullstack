@@ -14,13 +14,20 @@ export const getAllBlogs = (results) => {
 
 export const getUserBlogs = (id, results) => {
   db.query(
-    "select * from blogs where user_blog_id = $1",
+    "SELECT * FROM blogs WHERE user_blog_id = $1",
     [id],
     (err, result) => {
       if (err) {
         results(err, null);
       } else {
-        results(null, result.rows);
+        // Prepend the image URL path to each blog entry
+        const blogs = result.rows.map((blog) => {
+          if (blog.b_picture) {
+            blog.b_picture = `http://localhost:3000/images/${blog.b_picture}`;
+          }
+          return blog;
+        });
+        results(null, blogs);
       }
     }
   );

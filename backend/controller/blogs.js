@@ -7,6 +7,21 @@ import {
   display3Blogs,
 } from "../model/blogs.js";
 
+import path from "path";
+import multer from "multer";
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "Images");
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
+
 export const showAllBlogs = (req, res) => {
   getAllBlogs((err, result) => {
     if (err) {
@@ -39,14 +54,21 @@ export const show3Blogs = (req, res) => {
 };
 
 export const addBlog = (req, res) => {
-  const { title, author, description, picture } = req.body;
-  const userId = req.params.id;
-  insertBlog(title, author, description, picture, userId, (err, result) => {
+  upload.single("image")(req, res, (err) => {
     if (err) {
-      res.sendStatus(500);
-    } else {
-      res.sendStatus(200);
+      return res.sendStatus(500);
     }
+
+    const { title, author, description } = req.body;
+    const userId = req.params.id;
+    const picture = req.file ? req.file.filename : null;
+    insertBlog(title, author, description, picture, userId, (err, result) => {
+      if (err) {
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    });
   });
 };
 

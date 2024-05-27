@@ -51,6 +51,7 @@
 
           <v-file-input
             clearable
+            name="image"
             label="Blog Picture"
             v-model="picture"
             @change="handleFileChange($event)"
@@ -99,7 +100,7 @@ export default {
       title: "",
       author: "",
       description: "",
-      picture: "",
+      picture: null,
       imageUrl: "",
     };
   },
@@ -110,19 +111,28 @@ export default {
   },
   methods: {
     async createBlog() {
+      const formData = new FormData();
+      formData.append("title", this.title);
+      formData.append("author", this.author);
+      formData.append("description", this.description);
+      formData.append("image", this.picture);
+      formData.append("userId", this.$store.state.loggedInUserId);
+
       await axios.post(
         `http://localhost:3000/postBlog/${this.$store.state.loggedInUserId}`,
+        formData,
         {
-          title: this.title,
-          author: this.author,
-          description: this.description,
-          picture: this.picture.name,
-          userId: this.$store.state.loggedInUserId,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
+
       this.title = "";
       this.author = "";
       this.description = "";
+      this.picture = null;
+      this.imageUrl = "";
 
       setTimeout(() => {
         this.openDialog = false;

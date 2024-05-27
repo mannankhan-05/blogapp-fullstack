@@ -29,7 +29,7 @@
           ></v-icon>
         </div>
         <h2 class="text-decoration-underline mb-3">{{ blogs.b_title }}</h2>
-        <img :src="require(`@/assets/${blogs.b_picture}`)" class="mb-2 image" />
+        <img :src="blogs.b_picture" alt="Blog Image" class="mb-2 image" />
 
         <p class="mb-2">{{ blogs.b_description }}</p>
         <h5 class="mb-0 bg-grey text-white text-center">
