@@ -21,10 +21,14 @@ export const getUserBlogs = (id, results) => {
         results(err, null);
       } else {
         // Prepend the image URL path to each blog entry
+        // this line processes the rows returned by the query.
+        // The map function is used to iterate over each blog entry and modify it.
         const blogs = result.rows.map((blog) => {
           if (blog.b_picture) {
+            // If b_picture is present, it prepends the URL path http://localhost:3000/images/ to the image filename, creating a full URL to access the image.
             blog.b_picture = `http://localhost:3000/images/${blog.b_picture}`;
           }
+          // return blog;: Returns the modified blog entry.
           return blog;
         });
         results(null, blogs);
