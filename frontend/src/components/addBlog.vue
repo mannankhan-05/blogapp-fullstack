@@ -111,6 +111,8 @@ export default {
   },
   methods: {
     async createBlog() {
+      // creates a new FormData object. FormData is used to construct a set of key/value pairs
+      // representing form fields and their values, which can then be sent using an XMLHttpRequest or fetch.
       const formData = new FormData();
       formData.append("title", this.title);
       formData.append("author", this.author);

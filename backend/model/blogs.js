@@ -28,7 +28,7 @@ export const getUserBlogs = (id, results) => {
             // If b_picture is present, it prepends the URL path http://localhost:3000/images/ to the image filename, creating a full URL to access the image.
             blog.b_picture = `http://localhost:3000/images/${blog.b_picture}`;
           }
-          // return blog;: Returns the modified blog entry.
+          // return blog: Returns the modified blog entry.
           return blog;
         });
         results(null, blogs);
