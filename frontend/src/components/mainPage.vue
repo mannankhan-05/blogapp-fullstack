@@ -36,9 +36,17 @@
           Author : {{ blogs.b_author }}
         </h5>
         <router-link
-          :to="{ name: 'viewBlog', id: $store.state.loggedInUserId }"
+          :to="{
+            name: 'viewBlog',
+            params: { id: $store.state.loggedInUserId, blogid: blogs.b_id },
+          }"
         >
-          <v-btn class="viewBlogButton" variant="outlined">View Blog</v-btn>
+          <v-btn
+            class="viewBlogButton"
+            variant="outlined"
+            @click="setBlogId(blogs)"
+            >View Blog</v-btn
+          >
         </router-link>
       </v-card>
     </div>
@@ -162,6 +170,7 @@ export default {
       selectedBlog: null,
       removeBlogDialog: false,
       imageUrl: "",
+      blogId: null,
     };
   },
   async mounted() {
@@ -174,6 +183,11 @@ export default {
   },
 
   methods: {
+    setBlogId(blog) {
+      this.selectedBlog = blog;
+      this.blogId = blog.b_id;
+      console.log(this.blogId);
+    },
     showDeleteDialog(blog) {
       this.selectedBlog = blog;
       this.removeBlogDialog = true;

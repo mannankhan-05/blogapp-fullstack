@@ -18,7 +18,7 @@ const routes = [
     component: mainPage,
   },
   {
-    path: "/users/:id/blog",
+    path: "/users/:id/blog/:blogid",
     name: "viewBlog",
     component: viewBlog,
   },
