@@ -90,14 +90,21 @@ export const addBlog = (req, res) => {
 };
 
 export const editBlog = (req, res) => {
-  const id = req.params.id;
-  const { title, author, description, date } = req.body;
-  updateBlog(title, author, description, date, id, (err, result) => {
+  upload.single("image")(req, res, (err) => {
     if (err) {
-      res.sendStatus(500);
-    } else {
-      res.sendStatus(200);
+      return res.sendStatus(500);
     }
+
+    const id = req.params.id;
+    const { title, author, description } = req.body;
+    const picture = req.file ? req.file.filename : null;
+    updateBlog(title, author, description, picture, id, (err, result) => {
+      if (err) {
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    });
   });
 };
 

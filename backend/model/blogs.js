@@ -80,10 +80,17 @@ export const insertBlog = (
 };
 
 // to update the existing blog in the database using id of the blog
-export const updateBlog = (title, author, description, date, id, results) => {
+export const updateBlog = (
+  title,
+  author,
+  description,
+  picture,
+  id,
+  results
+) => {
   db.query(
-    "update blogs set b_title = $1, b_author = $2, b_description = $3, b_date = $4 where b_id = $5",
-    [title, author, description, date, id],
+    "update blogs set b_title = $1, b_author = $2, b_description = $3, b_picture = $4 where b_id = $5",
+    [title, author, description, picture, id],
     (err, result) => {
       if (err) {
         console.log("error occured while updating the data.");

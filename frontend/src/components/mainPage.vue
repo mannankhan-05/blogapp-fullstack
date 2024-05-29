@@ -106,6 +106,13 @@
               placeholder="Edit description of blog"
               clearable
             ></v-textarea>
+
+            <v-file-input
+              v-model="selectedBlog.b_picture"
+              name="image"
+              @change="handleFileChange($event)"
+            >
+            </v-file-input>
           </v-card-text>
 
           <v-card-actions>
@@ -143,6 +150,7 @@ export default {
       // the blog i am selecting to edit
       selectedBlog: null,
       removeBlogDialog: false,
+      imageUrl: "",
     };
   },
   async mounted() {
@@ -164,30 +172,46 @@ export default {
       this.openEditDialog = true;
     },
     async updateBlog() {
-      await axios.put(
-        `http://localhost:3000/updateBlog/${this.selectedBlog.b_id}`,
-        {
-          title: this.selectedBlog.b_title,
-          author: this.selectedBlog.b_author,
-          description: this.selectedBlog.b_description,
-        }
-      );
-      this.openEditDialog = false;
-    },
-    async deleteBlog(blog) {
+      const formData = new FormData();
+      formData.append("title", this.selectedBlog.b_title);
+      formData.append("author", this.selectedBlog.b_author);
+      formData.append("description", this.selectedBlog.b_description);
+      if (this.selectedBlog.b_picture instanceof File) {
+        formData.append("image", this.selectedBlog.b_picture);
+      }
+
       try {
-        await axios.delete(
-          `http://localhost:3000/deleteBlog/${this.selectedBlog.b_id}`
+        await axios.put(
+          `http://localhost:3000/updateBlog/${this.selectedBlog.b_id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
-        // Remove the deleted blog from AllBlogs array
-        const index = this.AllBlogs.findIndex((b) => b.b_id === blog.b_id);
+        this.openEditDialog = false;
+
+        // Update the blog in the local AllBlogs array
+        const index = this.AllBlogs.findIndex(
+          (blog) => blog.b_id === this.selectedBlog.b_id
+        );
         if (index !== -1) {
-          this.AllBlogs.splice(index, 1);
+          this.AllBlogs.splice(index, 1, this.selectedBlog);
         }
       } catch (error) {
-        console.error("Error deleting blog:", error);
+        console.error("Error updating blog:", error);
       }
-      this.removeBlogDialog = false;
+    },
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      if (file && file instanceof File) {
+        this.selectedBlog.b_picture = file;
+        this.imageUrl = URL.createObjectURL(file);
+      } else {
+        this.imageUrl = "";
+      }
+      console.log(this.imageUrl);
     },
   },
 };
