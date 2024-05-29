@@ -52,9 +52,10 @@ export default {
   },
 
   methods: {
-    formattedDate(dateString) {
+    formattedDate(epoch) {
+      const date = new Date(epoch * 1000); // Convert epoch seconds to milliseconds
       const options = { year: "numeric", month: "short", day: "numeric" };
-      return new Date(dateString).toLocaleDateString(undefined, options);
+      return date.toLocaleDateString(undefined, options);
     },
   },
 };
