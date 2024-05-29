@@ -35,6 +35,11 @@
         <h5 class="mb-0 bg-grey text-white text-center">
           Author : {{ blogs.b_author }}
         </h5>
+        <router-link
+          :to="{ name: 'viewBlog', id: $store.state.loggedInUserId }"
+        >
+          <v-btn class="viewBlogButton" variant="outlined">View Blog</v-btn>
+        </router-link>
       </v-card>
     </div>
 
@@ -112,6 +117,12 @@
               name="image"
               @change="handleFileChange($event)"
             >
+              <template v-slot:selection="{ text }">
+                <v-avatar v-if="imageUrl" size="30" class="mr-3 rounded">
+                  <img :src="imageUrl" alt="Selected Image" />
+                </v-avatar>
+                {{ text }}
+              </template>
             </v-file-input>
           </v-card-text>
 
@@ -269,5 +280,11 @@ export default {
 }
 .deleteButton:hover {
   cursor: pointer;
+}
+
+.viewBlogButton {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
 }
 </style>

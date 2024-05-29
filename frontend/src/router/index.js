@@ -4,6 +4,7 @@ import loginPage from "../views/Login.vue";
 import registerPage from "../views/Register.vue";
 import mainPage from "../views/AfterLogin.vue";
 import CreateBlog from "../views/CreateBlog.vue";
+import viewBlog from "../views/ViewBlog.vue";
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     path: "/users/:id",
     name: "users",
     component: mainPage,
+  },
+  {
+    path: "/users/:id/blog",
+    name: "viewBlog",
+    component: viewBlog,
   },
   {
     path: "/users/createBlog",
