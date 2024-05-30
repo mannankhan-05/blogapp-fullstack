@@ -12,6 +12,22 @@ export const getAllBlogs = (results) => {
   });
 };
 
+export const getBlogById = (id, results) => {
+  db.query("select * from blogs where b_id = $1", [id], (err, result) => {
+    if (err) {
+      results(err, null);
+    } else {
+      const blogs = result.rows.map((blog) => {
+        if (blog.b_picture) {
+          blog.b_picture = `http://localhost:3000/images/${blog.b_picture}`;
+        }
+        return blog;
+      });
+      results(null, blogs);
+    }
+  });
+};
+
 export const getUserBlogs = (id, results) => {
   db.query(
     "SELECT * FROM blogs WHERE user_blog_id = $1",

@@ -6,6 +6,7 @@ import {
 } from "../controller/users.js";
 import {
   showAllBlogs,
+  displayBlogById,
   displayUserBlogs,
   addBlog,
   editBlog,
@@ -17,6 +18,8 @@ import express from "express";
 const router = express.Router();
 
 router.get("/", showAllUsers);
+
+router.get("/blog/:id", displayBlogById);
 
 router.post("/registerUser", addUser);
 

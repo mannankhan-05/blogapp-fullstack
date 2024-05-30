@@ -21,6 +21,7 @@ const routes = [
     path: "/users/:id/blog/:blogid",
     name: "viewBlog",
     component: viewBlog,
+    props: true,
   },
   {
     path: "/users/createBlog",

@@ -31,7 +31,7 @@
         <h2 class="text-decoration-underline mb-3">{{ blogs.b_title }}</h2>
         <img :src="blogs.b_picture" alt="Blog Image" class="mb-2 image" />
 
-        <p class="mb-2">{{ blogs.b_description }}</p>
+        <p class="mb-2">{{ truncateText(blogs.b_description, 7) }}</p>
         <h5 class="mb-0 bg-grey text-white text-center">
           Author : {{ blogs.b_author }}
         </h5>
@@ -238,6 +238,13 @@ export default {
       }
       console.log(this.imageUrl);
     },
+    truncateText(text, wordLimit) {
+      const words = text.split(" ");
+      if (words.length <= wordLimit) {
+        return text;
+      }
+      return words.slice(0, wordLimit).join(" ") + " ...";
+    },
   },
 };
 </script>
@@ -247,6 +254,7 @@ export default {
   height: 50%;
   width: 100%;
   border-radius: 5px;
+  margin-left: 0px;
 }
 .blog-container {
   display: flex;
@@ -255,7 +263,7 @@ export default {
 }
 
 .blog-card {
-  height: 380px;
+  height: 420px;
   width: calc(50% - 20px);
   margin-bottom: 20px;
   border-radius: 5px;

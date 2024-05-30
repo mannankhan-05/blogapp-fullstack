@@ -18,15 +18,11 @@
             </p>
             <h2 class="pt-0 text-decoration-underline">{{ blog.b_title }}</h2>
             <div>
-              <img
-                :src="blog.b_picture"
-                alt="Blog Image"
-                class="mb-2 image"
-                :width="300"
-                :height="200"
-              />
+              <img :src="blog.b_picture" alt="Blog Image" class="mb-2 image" />
             </div>
-            <div class="font-weight-medium">{{ blog.b_description }}</div>
+            <div class="font-weight-medium">
+              {{ textTruncate(blog.b_description, 8) }}
+            </div>
           </v-sheet>
         </v-col>
       </v-row>
@@ -57,12 +53,20 @@ export default {
       const options = { year: "numeric", month: "short", day: "numeric" };
       return date.toLocaleDateString(undefined, options);
     },
+    textTruncate(text, wordLimit) {
+      const words = text.split(" ");
+      if (words <= wordLimit) {
+        return text;
+      }
+      return words.slice(0, wordLimit).join(" ") + " ...";
+    },
   },
 };
 </script>
 
-<style>
-.expand {
-  width: 35%;
+<style scoped>
+.image {
+  width: 300px;
+  height: 220px;
 }
 </style>
