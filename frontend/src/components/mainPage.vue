@@ -69,7 +69,7 @@
             No
           </v-btn>
           <v-btn
-            @click="deleteBlog(selectedBlog)"
+            @click="deleteBlog()"
             variant="tonal"
             color="blue-darken-4"
             class="ml-2 font-weight-medium"
@@ -227,6 +227,11 @@ export default {
       } catch (error) {
         console.error("Error updating blog:", error);
       }
+    },
+    async deleteBlog() {
+      await axios.delete(
+        `http://localhost:3000/deleteBlog/${this.selectedBlog.b_id}`
+      );
     },
     handleFileChange(event) {
       const file = event.target.files[0];

@@ -47,28 +47,6 @@
               placeholder="re-enter your age"
               clearable
             ></v-text-field>
-
-            <v-text-field
-              v-model="$store.state.myemail"
-              prepend-inner-icon=""
-              type="email"
-              :readonly="loading"
-              :rules="[required]"
-              label="Email"
-              placeholder="re-enter your email"
-              clearable
-            ></v-text-field>
-
-            <v-text-field
-              v-model="$store.state.mypassword"
-              prepend-inner-icon=""
-              type="password"
-              :readonly="loading"
-              :rules="[required]"
-              label="Password"
-              placeholder="re-enter your password"
-              clearable
-            ></v-text-field>
           </v-card-text>
 
           <v-card-actions>
@@ -116,14 +94,9 @@ export default {
           firstname: this.$store.state.myfirstname,
           lastname: this.$store.state.mylastname,
           age: this.$store.state.myage,
-          email: this.$store.state.myemail,
-          password: this.$store.state.mypassword,
         }
       );
       this.openEditDialog = false;
-      setTimeout(() => {
-        this.$router.push("/login");
-      }, 1000);
     },
   },
 };

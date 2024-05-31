@@ -40,8 +40,8 @@ export const addUser = (req, res) => {
 
 export const editUser = (req, res) => {
   const id = req.params.id;
-  const { firstname, lastname, age, email, password } = req.body;
-  updateUser(firstname, lastname, age, email, password, id, (err, result) => {
+  const { firstname, lastname, age } = req.body;
+  updateUser(firstname, lastname, age, id, (err, result) => {
     if (err) {
       console.log("an error occured while updating!.");
       res.sendStatus(500);

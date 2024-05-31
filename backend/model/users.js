@@ -35,18 +35,10 @@ export const insertUser = (
 };
 
 // to update the loggedIn user's information
-export const updateUser = (
-  firstname,
-  lastname,
-  age,
-  email,
-  password,
-  id,
-  results
-) => {
+export const updateUser = (firstname, lastname, age, id, results) => {
   db.query(
-    "update users set u_firstname = $1, u_lastname = $2, u_age = $3, u_email = $4, u_password = $5 where u_id = $6",
-    [firstname, lastname, age, email, password, id],
+    "update users set u_firstname = $1, u_lastname = $2, u_age = $3 where u_id = $4",
+    [firstname, lastname, age, id],
     (err, result) => {
       if (err) {
         results(err, null);
