@@ -32,9 +32,9 @@
         <img :src="blogs.b_picture" alt="Blog Image" class="mb-2 image" />
 
         <p class="mb-2">{{ truncateText(blogs.b_description, 7) }}</p>
-        <h5 class="mb-0 bg-grey text-white text-center">
+        <!-- <h5 class="mb-0 bg-grey text-white text-center">
           Author : {{ blogs.b_author }}
-        </h5>
+        </h5> -->
         <router-link
           :to="{
             name: 'viewBlog',
@@ -263,7 +263,7 @@ export default {
 }
 
 .blog-card {
-  height: 420px;
+  height: 390px;
   width: calc(50% - 20px);
   margin-bottom: 20px;
   border-radius: 5px;
