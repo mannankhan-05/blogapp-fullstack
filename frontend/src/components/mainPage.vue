@@ -232,6 +232,14 @@ export default {
       await axios.delete(
         `http://localhost:3000/deleteBlog/${this.selectedBlog.b_id}`
       );
+      this.removeBlogDialog = false;
+
+      // index is the start index from which elements will be removed. It was determined in the previous step using findIndex.
+      // 1 is the number of elements to remove starting from the index.
+      const index = this.AllBlogs.findIndex((blog) => {
+        blog.b_id === this.selectedBlog.b_id;
+      });
+      this.AllBlogs.splice(index, 1);
     },
     handleFileChange(event) {
       const file = event.target.files[0];
