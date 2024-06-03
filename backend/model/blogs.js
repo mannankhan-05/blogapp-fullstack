@@ -28,6 +28,21 @@ export const getBlogById = (id, results) => {
   });
 };
 
+// when i delete the blog. the picture of that blog should be deleted from images folder.
+export const deleteBlogPicture = (id, results) => {
+  db.query("select * from blogs where b_id = $1", [id], (err, result) => {
+    if (err) {
+      results(err, null);
+    } else {
+      const blog = result.rows[0];
+      if (blog && blog.b_picture) {
+        blog.b_picture = `http://localhost:3000/images/${blog.b_picture}`;
+      }
+      results(null, blog);
+    }
+  });
+};
+
 export const getUserBlogs = (id, results) => {
   db.query(
     "SELECT * FROM blogs WHERE user_blog_id = $1",
