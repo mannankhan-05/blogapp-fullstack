@@ -241,6 +241,7 @@ export default {
       });
       this.AllBlogs.splice(index, 1);
     },
+
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file && file instanceof File) {
