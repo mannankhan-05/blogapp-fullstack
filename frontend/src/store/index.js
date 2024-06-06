@@ -1,13 +1,12 @@
 import { createStore } from "vuex"; // Importing the `createStore` function from Vuex, which is used to create a Vuex store.
 import axios from "axios"; // Importing Axios library for making HTTP requests.
-// import { lastIndexOf } from "core-js/core/array";
 
 export default createStore({
   state: {
-    email: "", // Initializing email state variable as an empty string.
-    password: "", // Initializing password state variable as an empty string.
+    email: "",
+    password: "",
 
-    errorMessage: null, // Initializing errorMessage state variable as null.
+    errorMessage: null,
 
     isLoggedIn: localStorage.getItem("isLoggedIn") === "true",
 
@@ -79,12 +78,10 @@ export default createStore({
         state.isLoggedIn = true; // Set the isLoggedIn state variable to true, indicating the user is logged in.
 
         const userId = response.data.id; // Extracting the user ID from the response data.
-        console.log(userId); // Logging the user ID to the console.
         commit("setUserId", userId);
 
         const f1 = response.data.f1;
         const f2 = response.data.f2;
-        console.log(f1, f2);
 
         const user_firstname = response.data.firstname;
         const user_lastname = response.data.lastname;

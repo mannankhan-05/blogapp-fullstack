@@ -32,9 +32,6 @@
         <img :src="blogs.b_picture" alt="Blog Image" class="mb-2 image" />
 
         <p class="mb-2">{{ truncateText(blogs.b_description, 7) }}</p>
-        <!-- <h5 class="mb-0 bg-grey text-white text-center">
-          Author : {{ blogs.b_author }}
-        </h5> -->
         <router-link
           :to="{
             name: 'viewBlog',
@@ -166,7 +163,6 @@ export default {
       AllBlogs: [],
       editBlog: false,
       openEditDialog: false,
-      // the blog i am selecting to edit
       selectedBlog: null,
       removeBlogDialog: false,
       imageUrl: "",
@@ -186,7 +182,6 @@ export default {
     setBlogId(blog) {
       this.selectedBlog = blog;
       this.blogId = blog.b_id;
-      console.log(this.blogId);
     },
     showDeleteDialog(blog) {
       this.selectedBlog = blog;
@@ -250,7 +245,6 @@ export default {
       } else {
         this.imageUrl = "";
       }
-      console.log(this.imageUrl);
     },
     truncateText(text, wordLimit) {
       const words = text.split(" ");

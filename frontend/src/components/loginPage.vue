@@ -61,8 +61,6 @@
 </template>
 
 <script>
-// import axios from "axios";
-
 export default {
   name: "loginPage",
 
@@ -74,13 +72,8 @@ export default {
   methods: {
     onSubmit() {
       if (!this.form) return; // If the form is not submitted, return early.
-      this.loading = true; // Set loading state to true to indicate loading is in progress.
-      setTimeout(() => (this.loading = false), 2000); // Simulate loading for 2 seconds.
-      // Dispatch the 'login' action with email and password data when the form is submitted.
-      // this.$store.dispatch("login", {
-      //   email: this.email,
-      //   password: this.password,
-      // });
+      this.loading = true;
+      setTimeout(() => (this.loading = false), 2000);
     },
     required(v) {
       return !!v || "Field is required"; // Validation rule: Field is required.

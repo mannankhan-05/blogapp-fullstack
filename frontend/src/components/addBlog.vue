@@ -63,9 +63,6 @@
               {{ text }}
             </template>
           </v-file-input>
-          <p class="text-caption font-weight-medium ml-10 mt-0">
-            Once you upload the blog photo. you will not be able to change it
-          </p>
 
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -147,7 +144,6 @@ export default {
       } else {
         this.imageUrl = "";
       }
-      console.log(this.imageUrl);
     },
   },
 };
