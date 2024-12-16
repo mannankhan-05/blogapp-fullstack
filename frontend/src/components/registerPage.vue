@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axiosInstance from "../apis/axiosInstance.js";
 
 export default {
   data() {
@@ -117,7 +117,7 @@ export default {
       return !!v || "Field is required";
     },
     async registerUser() {
-      await axios.post("http://localhost:3000/registerUser", {
+      await axiosInstance.post("/registerUser", {
         firstname: this.firstname,
         lastname: this.lastname,
         age: this.age,

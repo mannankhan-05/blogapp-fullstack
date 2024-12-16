@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axiosInstance from "../apis/axiosInstance.js";
 
 export default {
   data() {
@@ -88,8 +88,8 @@ export default {
   },
   methods: {
     async updateUserInfo() {
-      await axios.put(
-        `http://localhost:3000/updateUser/${this.$store.state.loggedInUserId}`,
+      await axiosInstance.put(
+        `/updateUser/${this.$store.state.loggedInUserId}`,
         {
           firstname: this.$store.state.myfirstname,
           lastname: this.$store.state.mylastname,

@@ -5,7 +5,7 @@ export const getAllBlogs = (results) => {
   db.query("select * from blogs", (err, result) => {
     if (err) {
       results(err, null);
-      throw console.error("unable to fetch blogs from database");
+      console.log("unable to fetch blogs from database");
     } else {
       results(null, result.rows);
     }
@@ -124,7 +124,7 @@ export const updateBlog = (
     [title, author, description, picture, id],
     (err, result) => {
       if (err) {
-        console.log("error occured while updating the data.");
+        console.log("error occured while updating the data : ", err);
         results(err, null);
       } else {
         results(null, result);

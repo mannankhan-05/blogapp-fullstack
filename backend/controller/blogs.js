@@ -43,7 +43,7 @@ const upload = multer({ storage: storage });
 export const showAllBlogs = (req, res) => {
   getAllBlogs((err, result) => {
     if (err) {
-      res.send(500);
+      res.sendStatus(500);
     } else {
       res.json(result);
     }

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axiosInstance from "../apis/axiosInstance.js";
 export default {
   props: {
     blogid: {
@@ -33,7 +33,7 @@ export default {
     };
   },
   async mounted() {
-    let response = await axios.get(`http://localhost:3000/blog/${this.blogid}`);
+    let response = await axiosInstance.get(`/blog/${this.blogid}`);
     response.data.forEach((blog) => {
       this.blog.push(blog);
     });

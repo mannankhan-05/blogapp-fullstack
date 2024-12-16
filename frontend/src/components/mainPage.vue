@@ -155,7 +155,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axiosInstance from "../apis/axiosInstance.js";
 
 export default {
   data() {
@@ -170,8 +170,8 @@ export default {
     };
   },
   async mounted() {
-    let response = await axios.get(
-      `http://localhost:3000/userBlogs/${this.$store.state.loggedInUserId}`
+    let response = await axiosInstance.get(
+      `/userBlogs/${this.$store.state.loggedInUserId}`
     );
     response.data.forEach((blog) => {
       this.AllBlogs.push(blog);
@@ -201,8 +201,8 @@ export default {
       }
 
       try {
-        await axios.put(
-          `http://localhost:3000/updateBlog/${this.selectedBlog.b_id}`,
+        await axiosInstance.put(
+          `/updateBlog/${this.selectedBlog.b_id}`,
           formData,
           {
             headers: {
@@ -224,9 +224,7 @@ export default {
       }
     },
     async deleteBlog() {
-      await axios.delete(
-        `http://localhost:3000/deleteBlog/${this.selectedBlog.b_id}`
-      );
+      await axiosInstance.delete(`/deleteBlog/${this.selectedBlog.b_id}`);
       this.removeBlogDialog = false;
 
       // index is the start index from which elements will be removed. It was determined in the previous step using findIndex.

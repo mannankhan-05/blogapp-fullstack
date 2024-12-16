@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axiosInstance from "../apis/axiosInstance.js";
 
 export default {
   data() {
@@ -117,8 +117,8 @@ export default {
       formData.append("image", this.picture);
       formData.append("userId", this.$store.state.loggedInUserId);
 
-      await axios.post(
-        `http://localhost:3000/postBlog/${this.$store.state.loggedInUserId}`,
+      await axiosInstance.post(
+        `/postBlog/${this.$store.state.loggedInUserId}`,
         formData,
         {
           headers: {

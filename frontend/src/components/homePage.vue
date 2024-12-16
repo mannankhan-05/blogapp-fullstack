@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axiosInstance from "../apis/axiosInstance.js";
 
 export default {
   data() {
@@ -54,7 +54,7 @@ export default {
   },
 
   async mounted() {
-    let response = await axios.get("http://localhost:3000/blogs");
+    let response = await axiosInstance.get("/blogs");
     response.data.forEach((blog) => {
       this.sampleBlogs.push(blog);
     });

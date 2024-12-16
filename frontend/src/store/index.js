@@ -1,5 +1,5 @@
 import { createStore } from "vuex"; // Importing the `createStore` function from Vuex, which is used to create a Vuex store.
-import axios from "axios"; // Importing Axios library for making HTTP requests.
+import axiosInstance from "../apis/axiosInstance.js";
 
 export default createStore({
   state: {
@@ -71,7 +71,7 @@ export default createStore({
   actions: {
     async login({ state, commit }, { email, password, router }) {
       try {
-        let response = await axios.post("http://localhost:3000/loginUser", {
+        let response = await axiosInstance.post("/loginUser", {
           email, // The email entered by the user.
           password, // The password entered by the user.
         });
