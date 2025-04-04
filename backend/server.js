@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import router from "./routes/routes.js";
 import path from "path";
+import db from "./database.js";
 const app = express();
 
 // Imports the fileURLToPath function from the url module, which is used to convert a file URL to a path.
@@ -22,6 +23,14 @@ app.use("/Images", express.static(path.join(__dirname, "Images")));
 app.use(express.json());
 
 app.use(router);
+
+db.authenticate()
+  .then(() => console.log("Database connected successfully"))
+  .catch((err) => console.log("Error: " + err));
+
+db.sync()
+  .then(() => console.log("Database synced successfully"))
+  .catch((err) => console.log("Error: " + err));
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port}`);

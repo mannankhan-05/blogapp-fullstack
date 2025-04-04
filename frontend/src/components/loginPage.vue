@@ -1,7 +1,15 @@
 <template>
-  <v-sheet class="pa-12 custom-height">
-    <v-card class="mx-auto px-6 py-8 custom-width" max-width="550">
-      <h2 class="mb-3 font-weight-medium text-decoration-underline">Login</h2>
+  <v-sheet class="pa-12 custom-height" color="background">
+    <v-card
+      class="mx-auto px-6 py-8 custom-width"
+      max-width="550"
+      elevation="0"
+      :style="{ boxShadow: 'var(--shadow-card)' }"
+      rounded="lg"
+    >
+      <h2 class="text-h4 mb-6 font-weight-medium text-center text-primary">
+        Login
+      </h2>
       <v-form v-model="form" @submit.prevent="onSubmit">
         <v-text-field
           prepend-inner-icon="mdi-email-outline"
@@ -9,9 +17,12 @@
           type="email"
           :readonly="loading"
           :rules="[required]"
-          class="mb-2"
+          class="mb-4"
           label="Email"
           placeholder="Enter your email"
+          variant="outlined"
+          color="primary"
+          bg-color="surface"
           clearable
         ></v-text-field>
 
@@ -23,35 +34,44 @@
           :rules="[required]"
           label="Password"
           placeholder="Enter your password"
+          variant="outlined"
+          color="primary"
+          bg-color="surface"
           clearable
         ></v-text-field>
-
-        <br />
 
         <v-btn
           :disabled="!form"
           :loading="loading"
-          color="success"
+          color="primary"
           size="large"
           type="submit"
           variant="elevated"
           block
+          class="mt-6 text-white"
+          :style="{ boxShadow: 'var(--shadow-button)' }"
           @click="loginUser"
         >
           Sign In
         </v-btn>
-        <h4 class="mt-10 ml-9">
-          If You Don't Already Have An Account Then
+
+        <div class="mt-10 text-center">
+          <p class="text-body-1 mb-4">Don't have an account yet?</p>
           <router-link :to="{ name: 'register' }">
-            <v-btn color="bg-blue-lighten-3 font-weight-bold" variant="tonal">
-              SIGN UP
+            <v-btn
+              color="secondary"
+              variant="tonal"
+              class="font-weight-bold"
+              :style="{ transition: 'var(--transition-default)' }"
+            >
+              CREATE ACCOUNT
             </v-btn>
           </router-link>
-          First
-        </h4>
+        </div>
+
         <div
           v-if="errorMessage"
-          class="bg-red pa-1 text-center font-weight-medium mt-3"
+          class="bg-error-lighten-4 text-error pa-4 rounded mt-6 text-center font-weight-medium"
         >
           {{ errorMessage }}
         </div>
@@ -115,11 +135,18 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
+  background-color: var(--background) !important;
 }
 
 .custom-width {
-  width: 50%;
-  height: 45%;
-  box-shadow: 0px 0px 10px 2px black;
+  width: 100%;
+  max-width: 450px;
+  transition: var(--transition-default);
+}
+
+@media (max-width: 600px) {
+  .custom-width {
+    width: 90%;
+  }
 }
 </style>

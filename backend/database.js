@@ -1,14 +1,8 @@
-import pkg from "pg";
-const { Client } = pkg;
+import { Sequelize } from "sequelize";
 
-const db = new Client({
+const db = new Sequelize("blogdata", "postgres", "amk@postgre", {
   host: "localhost",
-  user: "postgres",
-  port: 5432,
-  password: "amk@postgre",
-  database: "blogdata",
+  dialect: "postgres", // Make sure to install "pg" and "pg-hstore"
 });
-
-db.connect();
 
 export default db;

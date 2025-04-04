@@ -1,79 +1,123 @@
 <template>
-  <div>
-    <div class="d-flex align-center flex-column bg-grey-lighten-4 pa-6">
-      <v-btn-toggle @click="editBlog = !editBlog" divided>
+  <div class="bg-background">
+    <div class="d-flex align-center flex-column pa-6">
+      <v-btn-toggle
+        @click="editBlog = !editBlog"
+        divided
+        color="primary"
+        density="comfortable"
+        rounded="lg"
+        class="mb-4"
+      >
         <v-btn icon="mdi-format-align-justify"></v-btn>
       </v-btn-toggle>
+      <h1 class="text-h4 text-primary font-weight-medium mb-6">My Blogs</h1>
     </div>
 
-    <div class="blog-container">
+    <div class="blog-container px-4">
       <v-card
-        variant="tonal"
-        class="pa-2 ma-3 blog-card"
+        variant="elevated"
+        elevation="0"
+        :style="{ boxShadow: 'var(--shadow-card)' }"
+        class="pa-4 ma-3 blog-card"
         width="370"
+        rounded="lg"
         v-for="blogs in AllBlogs"
         :key="blogs.b_id"
       >
-        <div v-if="editBlog" class="editButton">
-          <v-icon
+        <div v-if="editBlog" class="edit-controls">
+          <v-btn
             @click="OpenEditDialog(blogs)"
-            icon="mdi-pencil-circle-outline"
-            color="green-darken-4"
-          ></v-icon>
-        </div>
-        <div v-if="editBlog" class="deleteButton">
-          <v-icon
+            icon="mdi-pencil"
+            color="primary"
+            variant="text"
+            size="small"
+            class="mr-2"
+          ></v-btn>
+          <v-btn
             @click="showDeleteDialog(blogs)"
             icon="mdi-delete"
-            color="red-darken-4"
-          ></v-icon>
+            color="error"
+            variant="text"
+            size="small"
+          ></v-btn>
         </div>
-        <h2 class="text-decoration-underline mb-3">{{ blogs.b_title }}</h2>
-        <img :src="blogs.b_picture" alt="Blog Image" class="mb-2 image" />
 
-        <p class="mb-2">{{ truncateText(blogs.b_description, 7) }}</p>
-        <router-link
-          :to="{
-            name: 'viewBlog',
-            params: { id: $store.state.loggedInUserId, blogid: blogs.b_id },
-          }"
-        >
-          <v-btn
-            class="viewBlogButton"
-            variant="outlined"
-            @click="setBlogId(blogs)"
-            >View Blog</v-btn
+        <h2 class="text-h5 text-primary font-weight-medium mb-4">
+          {{ blogs.b_title }}
+        </h2>
+        <v-img
+          :src="blogs.b_picture"
+          alt="Blog Image"
+          class="mb-4 rounded-lg"
+          height="200"
+          cover
+        ></v-img>
+
+        <p class="text-body-1 mb-4 text-text-primary">
+          {{ truncateText(blogs.b_description, 7) }}
+        </p>
+
+        <div class="d-flex justify-end">
+          <router-link
+            :to="{
+              name: 'viewBlog',
+              params: { id: $store.state.loggedInUserId, blogid: blogs.b_id },
+            }"
           >
-        </router-link>
+            <v-btn
+              variant="elevated"
+              color="primary"
+              class="text-white"
+              :style="{ boxShadow: 'var(--shadow-button)' }"
+              @click="setBlogId(blogs)"
+            >
+              <v-icon class="mr-1">mdi-eye</v-icon>
+              View Blog
+            </v-btn>
+          </router-link>
+        </div>
       </v-card>
     </div>
 
-    <v-dialog v-model="removeBlogDialog" max-width="400" persistent>
+    <v-dialog
+      v-model="removeBlogDialog"
+      max-width="400"
+      persistent
+      :style="{ boxShadow: 'var(--shadow-dialog)' }"
+    >
       <v-card
         prepend-icon="mdi-delete"
-        text="Are U sure You Want To Delete This Blog ?"
         title="Delete Blog"
+        class="pa-4"
+        rounded="lg"
+        elevation="0"
+        :style="{ boxShadow: 'var(--shadow-card)' }"
       >
-        <template v-slot:actions>
+        <v-card-text class="text-body-1 py-4">
+          Are you sure you want to delete this blog?
+        </v-card-text>
+
+        <v-card-actions>
           <v-spacer></v-spacer>
 
           <v-btn
             @click="removeBlogDialog = false"
-            variant="tonal"
-            color="black-darken-2"
+            variant="outlined"
+            color="primary"
             class="font-weight-medium"
           >
-            No
+            Cancel
           </v-btn>
           <v-btn
             @click="deleteBlog()"
-            variant="tonal"
-            color="blue-darken-4"
-            class="ml-2 font-weight-medium"
+            variant="elevated"
+            color="error"
+            class="ml-2 font-weight-medium text-white"
           >
-            Yes
+            Delete
           </v-btn>
-        </template>
+        </v-card-actions>
       </v-card>
     </v-dialog>
 
@@ -82,10 +126,19 @@
       width="600"
       class="custom-height"
       v-model="openEditDialog"
+      :style="{ boxShadow: 'var(--shadow-dialog)' }"
     >
       <template v-slot:default="{}">
-        <v-card>
-          <h2 class="text-decoration-underline ma-5">Update Blog</h2>
+        <v-card
+          class="pa-4"
+          rounded="lg"
+          elevation="0"
+          :style="{ boxShadow: 'var(--shadow-card)' }"
+        >
+          <v-card-title class="text-h5 text-primary font-weight-bold mb-4">
+            Update Blog
+          </v-card-title>
+
           <v-card-text>
             <v-text-field
               v-model="selectedBlog.b_title"
@@ -94,6 +147,9 @@
               :rules="[required]"
               label="Title"
               placeholder="Edit title of blog"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
               clearable
             ></v-text-field>
 
@@ -104,6 +160,9 @@
               :rules="[required]"
               label="Author"
               placeholder="Edit author name"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
               clearable
             ></v-text-field>
 
@@ -114,13 +173,24 @@
               :rules="[required]"
               label="Description"
               placeholder="Edit description of blog"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
               clearable
+              rows="5"
             ></v-textarea>
 
             <v-file-input
               v-model="selectedBlog.b_picture"
               name="image"
               @change="handleFileChange($event)"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
+              prepend-icon="mdi-image"
+              accept="image/*"
+              :show-size="true"
+              label="Blog Image"
             >
               <template v-slot:selection="{ text }">
                 <v-avatar v-if="imageUrl" size="30" class="mr-3 rounded">
@@ -135,18 +205,23 @@
             <v-spacer></v-spacer>
 
             <v-btn
-              text="Close"
-              variant="tonal"
-              class="font-weight-bold"
+              text="Cancel"
+              variant="outlined"
+              color="primary"
+              class="font-weight-medium"
               @click="openEditDialog = false"
             ></v-btn>
             <v-btn
               text="Update"
-              variant="tonal"
-              class="font-weight-bold"
-              color="blue-darken-4"
+              variant="elevated"
+              color="primary"
+              class="font-weight-medium text-white ml-2"
+              :style="{ boxShadow: 'var(--shadow-button)' }"
               @click="updateBlog"
-            ></v-btn>
+            >
+              <v-icon class="mr-1">mdi-content-save</v-icon>
+              Save Changes
+            </v-btn>
           </v-card-actions>
         </v-card>
       </template>
@@ -257,62 +332,63 @@ export default {
 
 <style>
 .image {
-  height: 50%;
+  height: 200px;
   width: 100%;
-  border-radius: 5px;
-  margin-left: 0px;
+  border-radius: var(--radius-medium);
+  object-fit: cover;
 }
+
 .blog-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .blog-card {
-  height: 390px;
-  width: calc(50% - 20px);
-  margin-bottom: 20px;
-  border-radius: 5px;
+  position: relative;
+  height: auto;
+  width: 100%;
+  max-width: 370px;
+  margin-bottom: 24px;
+  border-radius: var(--radius-large);
+  transition: var(--transition-default);
+  background-color: var(--surface);
 }
+
 .blog-card:hover {
-  box-shadow: 0 0 5px 2px rgb(173, 166, 166);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.edit-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-medium);
+  padding: 4px;
 }
 
 @media (min-width: 768px) {
   .blog-card {
-    width: calc(33.33% - 20px); /* Adjust width as needed */
+    width: calc(50% - 24px);
+    margin: 12px;
   }
 }
 
 @media (min-width: 1024px) {
   .blog-card {
-    width: calc(25% - 20px); /* Adjust width as needed */
+    width: calc(33.33% - 24px);
+    margin: 12px;
   }
 }
 
-.editButton {
-  position: absolute;
-  right: 11%;
-  top: 2%;
-  font-size: 20px;
-}
-.editButton:hover {
-  cursor: pointer;
-}
-
-.deleteButton {
-  position: absolute;
-  right: 2%;
-  top: 2%;
-  font-size: 20px;
-}
-.deleteButton:hover {
-  cursor: pointer;
-}
-
-.viewBlogButton {
-  position: absolute;
-  right: 7px;
-  bottom: 7px;
+@media (min-width: 1440px) {
+  .blog-card {
+    width: calc(25% - 24px);
+    margin: 12px;
+  }
 }
 </style>

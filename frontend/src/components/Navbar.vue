@@ -1,13 +1,19 @@
 <template>
   <div>
-    <v-app-bar>
-      <v-app-bar-nav-icon @click="drawer = !drawer" />
+    <v-app-bar
+      elevation="0"
+      :style="{ boxShadow: 'var(--shadow-navbar)' }"
+      color="primary"
+      class="text-white"
+    >
+      <v-app-bar-nav-icon @click="drawer = !drawer" color="white" />
       <div>
         <router-link :to="{ name: 'home' }">
           <v-icon
             icon="mdi-shield-home"
             class="icon ml-5"
-            color="blue-darken-3"
+            color="white"
+            size="32"
           ></v-icon>
         </router-link>
       </div>
@@ -17,43 +23,58 @@
         {{ $store.state.f1 }}{{ $store.state.f2 }}
       </div>
       <router-link :to="{ name: 'login' }" v-if="!isLoggedIn">
-        <v-btn color="blue-darken-4" variant="tonal">
-          <v-icon class="pr-3">mdi-login</v-icon>
-          Login</v-btn
-        >
+        <v-btn color="white" variant="text" class="font-weight-medium">
+          <v-icon class="mr-2">mdi-login</v-icon>
+          Login
+        </v-btn>
       </router-link>
 
       <router-link :to="{ name: 'register' }" v-if="!isLoggedIn">
-        <v-btn color="blue-darken-4" variant="tonal" class="ml-4 mr-2">
-          <v-icon class="pr-3">mdi-account-plus</v-icon>
-          Register</v-btn
+        <v-btn
+          color="secondary"
+          variant="flat"
+          class="ml-4 mr-2 text-white font-weight-medium"
         >
+          <v-icon class="mr-2">mdi-account-plus</v-icon>
+          Register
+        </v-btn>
       </router-link>
     </v-app-bar>
 
     <v-navigation-drawer
+      v-model="drawer"
       v-if="drawer && isLoggedIn"
       app
       class="drawer"
       width="320"
+      temporary
+      :style="{ boxShadow: 'var(--shadow-dialog)' }"
     >
       <v-list>
+        <v-list-item class="py-4 bg-primary-lighten-5">
+          <v-list-item-title class="text-h6 font-weight-bold text-primary mb-2">
+            My Account
+          </v-list-item-title>
+        </v-list-item>
+
         <v-list-item v-if="isLoggedIn">
           <v-list-item-content>
             <div class="mb-3 mt-3">
               <updLoggedUser />
             </div>
-            <div>
+            <div class="mt-4">
               <addBlog />
             </div>
           </v-list-item-content>
         </v-list-item>
 
-        <v-divider v-if="isLoggedIn"></v-divider>
+        <v-divider v-if="isLoggedIn" class="my-4"></v-divider>
 
         <v-list-item>
           <v-list-item-content>
-            <p v-if="!isLoggedIn">You first need to sign in!</p>
+            <p v-if="!isLoggedIn" class="text-center text-body-1 my-4">
+              You first need to sign in!
+            </p>
             <logoutButton v-else />
           </v-list-item-content>
         </v-list-item>
@@ -89,18 +110,18 @@ export default {
 
 <style>
 .custom-font-color {
-  color: black;
+  color: var(--text-primary);
   text-decoration: underline;
   font-size: 23px;
 }
 
 .user-name {
-  background: rgb(58, 61, 63);
+  background: rgba(255, 255, 255, 0.2);
   color: white;
   font-weight: bold;
-  width: 60px;
-  height: 35px;
-  border-radius: 3px;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-circle);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,10 +129,14 @@ export default {
 }
 
 .drawer {
-  box-shadow: 0 0 5px 2px black;
+  background-color: var(--surface);
 }
 
 .icon {
-  font-size: 40px;
+  transition: var(--transition-default);
+}
+
+.icon:hover {
+  transform: scale(1.1);
 }
 </style>
