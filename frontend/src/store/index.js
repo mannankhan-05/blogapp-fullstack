@@ -83,8 +83,8 @@ export default createStore({
         const f1 = response.data.f1;
         const f2 = response.data.f2;
 
-        const user_firstname = response.data.firstname;
-        const user_lastname = response.data.lastname;
+        const user_firstname = response.data.firstName;
+        const user_lastname = response.data.lastName;
         const user_age = response.data.age;
         const user_email = response.data.email;
         const user_password = response.data.password;

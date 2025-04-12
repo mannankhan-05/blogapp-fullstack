@@ -118,15 +118,15 @@ user.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Age: {
+    age: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    Email: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Password: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },

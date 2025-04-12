@@ -2,84 +2,118 @@
   <div>
     <v-btn
       v-if="isLoggedIn"
-      color="blue-darken-4"
-      variant="tonal"
+      color="primary"
+      variant="elevated"
+      class="text-white"
+      block
+      :style="{ boxShadow: 'var(--shadow-button)' }"
       @click="openDialog = !openDialog"
     >
-      <v-icon class="pr-3">mdi-plus-box</v-icon>
-      Create New Blog</v-btn
-    >
+      <v-icon class="mr-2">mdi-plus-box</v-icon>
+      Create New Blog
+    </v-btn>
 
-    <v-dialog v-model="openDialog" width="600" class="custom-height">
+    <v-dialog
+      v-model="openDialog"
+      width="600"
+      class="custom-height"
+      :style="{ boxShadow: 'var(--shadow-dialog)' }"
+    >
       <template v-slot:default="{}">
-        <v-card>
-          <h2 class="text-decoration-underline ma-5">Create A New Blog</h2>
+        <v-card
+          class="pa-4"
+          rounded="lg"
+          elevation="0"
+          :style="{ boxShadow: 'var(--shadow-card)' }"
+        >
+          <v-card-title class="text-h5 text-primary font-weight-bold mb-4">
+            Create A New Blog
+          </v-card-title>
+
           <v-card-text>
             <v-text-field
               v-model="title"
-              prepend-inner-icon=""
               type="text"
               :readonly="loading"
               :rules="[required]"
               label="Title"
               placeholder="Enter title of blog"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
               clearable
             ></v-text-field>
 
             <v-text-field
               v-model="author"
-              prepend-inner-icon=""
               type="text"
               :readonly="loading"
               :rules="[required]"
               label="Author"
               placeholder="Enter author name"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
               clearable
             ></v-text-field>
 
             <v-textarea
               v-model="description"
-              prepend-inner-icon=""
               type="text"
               :readonly="loading"
               :rules="[required]"
               label="Description"
               placeholder="Enter description of blog"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
               clearable
+              rows="5"
             ></v-textarea>
-          </v-card-text>
 
-          <v-file-input
-            clearable
-            name="image"
-            label="Blog Picture"
-            v-model="picture"
-            @change="handleFileChange($event)"
-          >
-            <template v-slot:selection="{ text }">
-              <v-avatar v-if="imageUrl" size="30" class="mr-3 rounded">
-                <img :src="imageUrl" alt="Selected Image" />
-              </v-avatar>
-              {{ text }}
-            </template>
-          </v-file-input>
+            <v-file-input
+              clearable
+              name="image"
+              label="Blog Picture"
+              v-model="picture"
+              @change="handleFileChange($event)"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
+              prepend-icon="mdi-image"
+              accept="image/*"
+              :show-size="true"
+            >
+              <template v-slot:selection="{ text }">
+                <v-avatar v-if="imageUrl" size="30" class="mr-3 rounded">
+                  <img :src="imageUrl" alt="Selected Image" />
+                </v-avatar>
+                {{ text }}
+              </template>
+            </v-file-input>
+          </v-card-text>
 
           <v-card-actions>
             <v-spacer></v-spacer>
 
             <v-btn
-              text="Close"
-              variant="tonal"
-              class="font-weight-bold"
+              text="Cancel"
+              variant="outlined"
+              color="primary"
+              class="font-weight-medium"
               @click="openDialog = !openDialog"
             ></v-btn>
             <v-btn
               text="Create"
-              variant="tonal"
-              class="font-weight-bold"
-              color="blue-darken-4"
+              variant="elevated"
+              color="primary"
+              class="font-weight-medium text-white ml-2"
+              :style="{ boxShadow: 'var(--shadow-button)' }"
               @click="createBlog"
-            ></v-btn>
+            >
+              <v-icon class="mr-1">mdi-plus</v-icon>
+              Create Blog
+            </v-btn>
           </v-card-actions>
         </v-card>
       </template>
@@ -149,4 +183,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.v-dialog > .v-card {
+  border-radius: var(--radius-large);
+  overflow: hidden;
+}
+</style>

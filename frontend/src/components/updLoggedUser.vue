@@ -2,49 +2,71 @@
   <div>
     <v-btn
       v-if="isLoggedIn"
-      color="blue-darken-4"
-      variant="tonal"
+      color="secondary"
+      variant="elevated"
+      class="text-white"
+      block
+      :style="{ boxShadow: 'var(--shadow-button)' }"
       @click="openEditDialog = !openEditDialog"
     >
-      <v-icon class="pr-3">mdi-account-edit</v-icon>
-      Edit User Info</v-btn
-    >
+      <v-icon class="mr-2">mdi-account-edit</v-icon>
+      Edit User Info
+    </v-btn>
 
-    <v-dialog v-model="openEditDialog" width="600" class="custom-height">
+    <v-dialog
+      v-model="openEditDialog"
+      width="600"
+      class="custom-height"
+      :style="{ boxShadow: 'var(--shadow-dialog)' }"
+    >
       <template v-slot:default="{}">
-        <v-card>
-          <h2 class="text-decoration-underline ma-5">Update Users Info</h2>
+        <v-card
+          class="pa-4"
+          rounded="lg"
+          elevation="0"
+          :style="{ boxShadow: 'var(--shadow-card)' }"
+        >
+          <v-card-title class="text-h5 text-primary font-weight-bold mb-4">
+            Update Profile Information
+          </v-card-title>
+
           <v-card-text>
             <v-text-field
               v-model="$store.state.myfirstname"
-              prepend-inner-icon=""
               type="text"
               :readonly="loading"
               :rules="[required]"
-              label="FirstName"
-              placeholder="re-enter your firstname"
+              label="First Name"
+              placeholder="Enter your firstname"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
               clearable
             ></v-text-field>
 
             <v-text-field
               v-model="$store.state.mylastname"
-              prepend-inner-icon=""
               type="text"
               :readonly="loading"
               :rules="[required]"
-              label="LastName"
-              placeholder="re-enter your lastname"
+              label="Last Name"
+              placeholder="Enter your lastname"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
               clearable
             ></v-text-field>
 
             <v-text-field
               v-model="$store.state.myage"
-              prepend-inner-icon=""
               type="number"
               :readonly="loading"
               :rules="[required]"
               label="Age"
-              placeholder="re-enter your age"
+              placeholder="Enter your age"
+              variant="outlined"
+              color="primary"
+              bg-color="surface"
               clearable
             ></v-text-field>
           </v-card-text>
@@ -53,18 +75,23 @@
             <v-spacer></v-spacer>
 
             <v-btn
-              text="Close"
-              variant="tonal"
-              class="font-weight-bold"
+              text="Cancel"
+              variant="outlined"
+              color="primary"
+              class="font-weight-medium"
               @click="openEditDialog = !openEditDialog"
             ></v-btn>
             <v-btn
               text="Update"
-              variant="tonal"
-              class="font-weight-bold"
-              color="blue-darken-4"
+              variant="elevated"
+              color="primary"
+              class="font-weight-medium text-white ml-2"
+              :style="{ boxShadow: 'var(--shadow-button)' }"
               @click="updateUserInfo"
-            ></v-btn>
+            >
+              <v-icon class="mr-1">mdi-content-save</v-icon>
+              Save Changes
+            </v-btn>
           </v-card-actions>
         </v-card>
       </template>
@@ -102,4 +129,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.v-dialog > .v-card {
+  border-radius: var(--radius-large);
+  overflow: hidden;
+}
+</style>

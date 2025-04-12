@@ -12,6 +12,7 @@ const saltRounds = 10;
 
 export const addUser = async (req, res) => {
   const { firstName, lastName, age, email, password } = req.body;
+  console.log(req.body);
 
   // Hashing the password
   const hashedPassword = await bcrypt.hash(password, saltRounds);
