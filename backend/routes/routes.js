@@ -1,9 +1,4 @@
-import {
-  showAllUsers,
-  addUser,
-  editUser,
-  logInUser,
-} from "../controller/users.js";
+import { addUser, editUser, logInUser } from "../controller/user.js";
 import {
   showAllBlogs,
   displayBlogById,
@@ -12,12 +7,10 @@ import {
   editBlog,
   removeBlog,
   show3Blogs,
-} from "../controller/blogs.js";
+} from "../controller/blog.js";
 
 import express from "express";
 const router = express.Router();
-
-router.get("/", showAllUsers);
 
 router.get("/blog/:id", displayBlogById);
 

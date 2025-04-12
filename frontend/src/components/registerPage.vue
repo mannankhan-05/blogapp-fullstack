@@ -137,7 +137,7 @@ export default {
       loading: false,
       firstname: "",
       lastname: "",
-      age: "",
+      age: 0,
       email: "",
       password: "",
     };
@@ -156,8 +156,8 @@ export default {
     },
     async registerUser() {
       await axiosInstance.post("/registerUser", {
-        firstname: this.firstname,
-        lastname: this.lastname,
+        firstName: this.firstname,
+        lastName: this.lastname,
         age: this.age,
         email: this.email,
         password: this.password,
